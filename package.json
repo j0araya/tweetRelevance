@@ -4,12 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "concurrently \"ng serve -pc proxy.conf.json --open\" \"nodemon server/server.js NODE_ENV=development --inspect=9000\""
+    "start": "concurrently \"ng serve -pc proxy.conf.json --open\" \"nodemon server/server.js NODE_ENV=development --inspect=9000\""
   },
   "private": true,
   "dependencies": {
