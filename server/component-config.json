@@ -1,0 +1,9 @@
+﻿{
+  "loopback-component-oauth2": {
+    "dataSource": "wenteractDb",
+    "authorizationServer": true,
+    "resourceServer": true,
+    "tokenPath": "/api/auth/oauth/token",
+    "addHttpHeaders": "X-"
+  }
+}

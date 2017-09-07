@@ -1,0 +1,57 @@
+﻿{
+  "name": "Plan",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "strict": "filter",
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": {
+      "createdAt": "created",
+      "updatedAt": "modified",
+      "required": false,
+      "validateUpsert": true,
+      "silenceWarnings": false
+    },
+    "ReadOnly": {
+      "created": true,
+      "modified": true
+    }
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "business": {
+      "type": "boolean",
+      "default": false
+    },
+    "codeName": {
+      "type": "string",
+      "required": true,
+      "index": {
+        "unique": true
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "cost": {
+      "type": "number",
+      "default": 0
+    },
+    "interval": {
+      "type": "string",
+      "enum": [
+        "year",
+        "month"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

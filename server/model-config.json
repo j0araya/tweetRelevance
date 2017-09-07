@@ -1,0 +1,81 @@
+﻿{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "./api/models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./api/mixins",
+      "./mixins",
+      "../node_modules/loopback-ds-paginate-mixin/lib",
+      "../node_modules/loopback-ds-readonly-mixin/lib",
+      "../node_modules/loopback-cascade-delete-mixin",
+      "../node_modules/loopback-ds-timestamp-mixin",
+      "./api/mixins/loopback-mongo-aggregate-mixin/dist"
+    ]
+  },
+  "User": {
+    "dataSource": "wenteract-db",
+    "public": false
+  },
+  "userCredential": {
+    "dataSource": "wenteract-db",
+    "public": false
+  },
+  "userIdentity": {
+    "dataSource": "wenteract-db",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "wenteract-db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "wenteract-db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "wenteract-db",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "wenteract-db",
+    "public": true,
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false
+        }
+      }
+    }
+  },
+
+  "user": {
+    "dataSource": "wenteract-db",
+    "public": true,
+    "options": {
+      "emailVerificationRequired": true,
+      "remoting": {
+        "sharedMethods": {
+          "login": false,
+          "logout": false,
+          "replaceById": false
+        }
+      }
+    }
+  },
+  "Email": {
+    "dataSource": "emailDs"
+  },
+  "Plan": {
+    "dataSource": "wenteract-db",
+    "public": true
+  }
+}
