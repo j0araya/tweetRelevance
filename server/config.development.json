@@ -23,6 +23,10 @@
   "amazonS3": {
     "bucket": "ksd-repository-dev"
   },
+  "stripe": {
+    "key": "",
+    "enable": false
+  },
   "urls": {
     "client": "http://localhost:3000"
   },
