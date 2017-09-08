@@ -1,0 +1,588 @@
+// Angular Bootstrap
+$brand-primary: theme-color("primary");
+$brand-danger: theme-color("danger");
+$brand-info: theme-color("info");
+$brand-success: theme-color("success");
+$brand-warning: theme-color("warning");
+$brand-default: theme-color("default");
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none;
+}
+
+
+
+/* ============= Buttons ============= */
+.btn {
+    border-radius: 0;
+    border: none;
+    padding: 7px 12px;
+
+    &.btn-xs {
+        padding: 1px 5px;
+    }
+    &.btn-sm {
+        padding: 5px 10px;
+    }
+
+    &.btn-full {
+        width: 100%;
+    }
+    &.btn-social {
+        &.btn-facebook {
+            color: white;
+            background-color: $brand-primary;
+        }
+        &.btn-google {
+            color: white;
+            background-color: $brand-danger;
+        }
+        &.btn-twitter {
+            color: white;
+            background-color: $brand-info;
+        }
+    }
+}
+.btn-verde {
+    background: $color-verde;
+    color: white;
+
+    &:hover {
+        background: darken($color-verde, 10%);
+        color: white;
+    }
+
+    &.btn-bordered {
+        background: none;
+        color: $color-verde;
+        border: 1px $color-verde solid;
+
+        &:hover {
+            background: $color-verde;
+            color: white;
+        }
+    }
+}
+.btn-white {
+    background: white;
+    color: black;
+
+    &.btn-bordered {
+        background: none;
+        color: white;
+        border: 1px white solid;
+
+        &:hover {
+            background: white;
+            color: $color-space;
+        }
+    }
+}
+.btn-grey {
+    background-color: $color-grey;
+    color: white;
+
+    &.btn-bordered {
+        background-color: transparent;
+        color: $color-grey;
+        border: 1px $color-grey solid;
+
+        &:hover {
+            background-color: $color-grey;
+            color: white;
+        }
+    }
+}
+.btn-black {
+    background-color: black;
+    color: white;
+
+    &.btn-bordered {
+        background: none;
+        color: black;
+        border: 1px black solid;
+
+        &:hover {
+            background-color: black;
+            color: white;
+        }
+    }
+}
+.btn-danger {
+    &.btn-bordered {
+        background: none;
+        color: $brand-danger;
+        border: 1px $brand-danger solid;
+
+        &:hover {
+            background-color: $brand-danger;
+            color: white;
+        }
+    }
+}
+.btn-info {
+    &.btn-bordered {
+        background: none;
+        color: $brand-info;
+        border: 1px $brand-info solid;
+
+        &:hover {
+            background-color: $brand-info;
+            color: white;
+        }
+    }
+}
+.btn-default, .btn-default:disabled {
+    &.btn-bordered {
+        background: none;
+        color: $color-grey-lighter;
+        border: 1px $color-grey-lighter solid;
+    }
+}
+
+.btn-slot {
+    font-size: 14px;
+    border: 1px $color-grey-lighter solid;
+    border-radius: 7px;
+    color: $color-grey-lighter;
+    background-color: $color-grey-milkier;
+    padding: 10px 12px;
+
+    &:hover {
+        color: $color-grey-light;
+        background-color: $color-grey-milky;
+    }
+
+    &.btn-bordered {
+        color: $color-grey-light;
+        background-color: transparent;
+
+        &:hover {
+            color: $color-grey-light;
+            // background-color: $color-grey-milkier;
+            background-color: rgba(255,255,255,.2);
+        }
+    }
+}
+
+.btn-link {
+    &.btn-link-white {
+        color: white;
+    }
+    &.btn-link-grey-light {
+        color: $color-grey-light;
+    }
+    &.btn-link-grey-lighter {
+        color: $color-grey-lighter;
+    }
+    &.btn-link-grey-lightest {
+        color: $color-grey-lightest;
+    }
+    &.btn-grey, &.btn-link-grey {
+        color: $color-grey;
+    }
+}
+.btn-primary {
+    &.btn-bordered {
+        background: none;
+        color: $brand-primary;
+        border: 1px $brand-primary solid;
+
+        &:hover {
+            background: $brand-primary;
+            color: white;
+        }
+    }
+}
+.btn-default {
+    background: $color-grey-light;
+    color: white;
+
+    &:hover {
+        background: $color-grey;
+    }
+    &.btn-bordered {
+        background: none;
+        color: $color-grey-light;
+        border: 1px $color-grey-light solid;
+
+        &:hover {
+            background: $color-grey-light;
+            color: white;
+        }
+    }
+}
+.btn-default[disabled] {
+    cursor: not-allowed;
+    background-color: $color-grey-lighter;
+
+    &:hover {
+        background: $color-grey-milkier;
+        color: $color-grey-light;
+    }
+}
+/* FIN Buttons */
+
+
+
+/* ============= Labels ============= */
+span.label, div.label {
+    &.label-bordered {
+        background: none;
+
+        &.label-danger {
+            border: 1px $brand-danger solid;
+            color: $brand-danger;
+        }
+    }
+    &.label-xs {
+        font-size: 10px;
+    }
+}
+.label-default {
+    background-color: $color-grey-light;
+}
+/* FIN Labels */
+
+
+
+
+/* ============= Form ============= */
+.input-group {
+    .form-control {
+        height: 35px;
+    }
+}
+.form-group {
+    input.form-control, select.form-control {
+        border-radius: 0;
+        border-color: $color-grey-lighter;
+
+        &.form-control-contrast {
+            border-color: white;
+            background-color: transparent;
+            color: white;
+            @include input-placeholder($color-grey-light);
+        }
+    }
+    label {
+        text-align: left;
+        font-weight: bold;
+        font-size: 12px;
+        color: $color-grey-dark;
+
+        &.label-contrast {
+            color: white;
+        }
+    }
+
+    /* enable absolute positioning */
+    .inner-addon {
+        position: relative;
+
+        .inner-addon-item {
+            position: absolute;
+            padding: 10px;
+            pointer-events: none;
+            top: 0;
+        }
+        &.clickable {
+            .inner-addon-item {
+                pointer-events: auto;
+            }
+        }
+        &.left-addon {
+            .inner-addon-item  { left:  0px;}
+            input  { padding-left:  30px; }
+        }
+        &.right-addon {
+            .inner-addon-item { right: 0px;}
+            input { padding-right: 30px; }
+        }
+    }
+}
+/* FIN Form */
+
+
+
+
+
+/* ============= Tooltip ============= */
+.tooltip {
+    &.in {
+        @include opacity(1.0);
+    }
+    .tooltip-arrow {}
+    .tooltip-inner {
+        font-family: 'Ubuntu', sans-serif;
+        background-color: black;
+        font-size: 1em;
+        color: $color-grey-lightest;
+        border-radius: 0;
+        padding: .6em 1em;
+    }
+}
+/* Tooltip */
+
+
+
+
+
+/* ============= Dropdown ============= */
+.dropdown-menu {
+    .active {
+        background-color: $brand-primary;
+
+        a {
+            color: white;
+        }
+    }
+}
+.dropdown-filter {
+    top: -1em;
+    left: auto;
+    right: -50%;
+    padding-top: .8em;
+    padding-bottom: .8em;
+    border-radius: 0;
+    border: none;
+    box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3);
+
+    &.left {
+        right: auto;
+        left: 0;
+    }
+
+    ul {
+        margin: 2em 0 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    li {
+        color: $color-grey-light;
+        font-size: 14px;
+
+        &.dropdown-header {
+            font-size: .8em;
+            color: $color-grey-lighter;
+        }
+
+        a, label {
+            font-weight: normal;
+            display: block;
+            padding: .5em 1.3em .5em 1.3em;
+            color: $color-grey-light;
+        }
+        .icono {
+            margin-right: .5em;
+        }
+        &.active {
+            a {
+                background: $brand-primary;
+                color: white;
+            }
+        }
+
+        /* Forms */
+        label {
+            cursor: pointer;
+
+            &:hover {
+                color: $color-grey-dark;
+            }
+
+            .icono {
+                margin: -1px 4px 0 0;
+                vertical-align: middle;
+            }
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            display:none;
+
+            &:checked {
+                + label .texto, ~ .texto {
+                    color: $color-grey-dark;
+                }
+                + label .icono, ~ .icono {
+                }
+            }
+            &:disabled {
+                + label .texto, ~ .texto {
+                    color: $color-grey-lighter;
+                    opacity: .5;
+                    cursor: not-allowed;
+
+                    &:hover {
+                        color: $color-grey-lighter;
+                    }
+                }
+            }
+        }
+    }
+}
+/* FIN Dropdown */
+
+
+
+
+/* ============= Modals ============= */
+.modal-header {
+    border-bottom: 0;
+
+    .close {
+        margin-top: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: .3em .7em;
+    }
+
+    &.bordered {
+        border-bottom: 1px solid $color-grey-milky;
+    }
+}
+.modal-title {
+    font-weight: lighter;
+    font-size: 32px;
+    color: $color-grey-dark;
+}
+.modal-content {
+    border-radius: 0;
+}
+.modal-body {
+    padding: 1.7em 2.2em;
+
+    .form-group-destacado {
+        .form-control {
+            font-weight: lighter;
+            font-size: 14px;
+            color: $color-grey-dark;
+        }
+        .btn {}
+        .opciones {
+            margin-top: .3em;
+
+            a {
+                font-size: 12px;
+                color: $brand-primary;
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+.modal-footer {
+    border-top: 1px $color-grey-lightest solid;
+}
+/* FIN Modals */
+
+
+
+
+/* ============= Carousel ============= */
+.carousel {
+    .carousel-inner {
+        > div {
+            height: 100%;
+        }
+    }
+}
+.carousel-indicators {
+    li {
+        margin: 1px .3em;
+
+        &.active {
+            margin: 0 .3em;
+        }
+    }
+}
+/* FIN Carousel */
+
+
+
+
+/* ============= Navs ============= */
+.tabset-flex {
+    > .tab-content {
+        position: relative;
+
+        > .tab-pane {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    }
+}
+.nav-tabs {
+    text-align: center;
+
+    > li {
+        font-size: 14px;
+        float: none;
+        display: inline-block;
+
+        // Actual tabs (as links)
+        > a {
+            padding: .5em 1em;
+            color: $color-grey-lighter;
+            border: none;
+            border-radius: 0;
+
+            .icono {
+                bottom: -2px;
+                left: -2px;
+            }
+
+            &:hover {
+                background: none;
+                border: none;
+                color: $color-grey;
+            }
+        }
+
+        // Active state, and its :hover to override normal :hover
+        &.active {
+            > a {
+                &,
+                &:hover,
+                &:focus {
+                    color: $color-grey;
+                    background: none;
+                    border: none;
+                    border-bottom: 3px $brand-primary solid;
+                    cursor: default;
+                }
+            }
+        }
+        &.nav-tab-contrast {
+            &.active {
+                > a {
+                    &,
+                    &:hover,
+                    &:focus {
+                        color: white;
+                        background: rgba(0,0,0,.2);
+                        font-weight: lighter;
+                    }
+                }
+            }
+        }
+        &.only-icons {
+            > a {
+                .icono {
+                    bottom: auto;
+                    left: auto;
+                }
+            }
+        }
+    }
+}
