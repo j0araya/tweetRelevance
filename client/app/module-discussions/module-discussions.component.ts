@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./module-discussions.component.css']
 })
 export class ModuleDiscussionsComponent implements OnInit {
+    page = 1;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
+    ngOnInit() {
   }
 
 }

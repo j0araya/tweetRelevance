@@ -1,23 +1,23 @@
-<div class="container p-y-sm">
+<div class="container-fluid p-y-sm">
     <div class="row">
-        <aside class="sidebar col-sm-3">
+        <aside class="sidebar col-sm-12 col-md-2">
             <h2 class="h4">Modules</h2>
             <ul class="list-unstyled m-b-sm">
-                <li><a routerLink="chat" href="" routerLinkActive="active">Live Chat</a></li>
-                <li><a routerLink="discussions" href="" routerLinkActive="active">Discussions</a></li>
-                <li><a routerLink="notes" href="" routerLinkActive="active">Smart Notes</a></li>
-                <li><a routerLink="polls" href="" routerLinkActive="active">Polls</a></li>
-                <li><a routerLink="help_center" href="" routerLinkActive="active">Help Center</a></li>
+                <li><a class="btn btn-link disabled" routerLink="chat" href="" routerLinkActive="active">Live Chat</a></li>
+                <li><a class="btn btn-link" routerLink="discussions" href="" routerLinkActive="active">Discussions</a></li>
+                <li><a class="btn btn-link disabled" routerLink="notes" href="" routerLinkActive="active">Smart Notes</a></li>
+                <li><a class="btn btn-link disabled" routerLink="polls" href="" routerLinkActive="active">Polls</a></li>
+                <li><a class="btn btn-link disabled" routerLink="help_center" href="" routerLinkActive="active">Help Center</a></li>
             </ul>
 
             <h2 class="h4">Tools</h2>
             <ul class="list-unstyled">
-                <li><a href="/account/payments" routerLinkActive="active">Payment</a></li>
-                <li><a href="/account/profile" routerLinkActive="active">Profile</a></li>
-                <li><a href="/account/logout">Logout</a></li>
+                <li><a class="btn btn-link disabled" href="/account/payments" routerLinkActive="active">Payment</a></li>
+                <li><a class="btn btn-link disabled" href="/account/profile" routerLinkActive="active">Profile</a></li>
+                <li><a class="btn btn-link" href="/account/logout">Logout</a></li>
             </ul>
         </aside>
-        <div class="main-content">
+        <div class="main-content col-sm-12 col-md-10">
             <router-outlet></router-outlet>
         </div>
     </div>

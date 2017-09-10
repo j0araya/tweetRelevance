@@ -40,6 +40,9 @@
 @import "../../../node_modules/bootstrap/scss/carousel";
 @import "../../../node_modules/bootstrap/scss/utilities";
 
+// Plugins
+@import "plugins/font-awesome/font-awesome.scss";
+
 @import "core/variables";
 @import "core/mixins";
 @import "core/extend_bootstrap";
