@@ -1,24 +1,55 @@
 <div class="container-fluid p-y-sm">
-    <div class="row">
-        <aside class="sidebar col-sm-12 col-md-2">
-            <h2 class="h4">Modules</h2>
-            <ul class="list-unstyled m-b-sm">
-                <li><a class="btn btn-link disabled" routerLink="chat" href="" routerLinkActive="active">Live Chat</a></li>
-                <li><a class="btn btn-link" routerLink="discussions" href="" routerLinkActive="active">Discussions</a></li>
-                <li><a class="btn btn-link disabled" routerLink="notes" href="" routerLinkActive="active">Smart Notes</a></li>
-                <li><a class="btn btn-link disabled" routerLink="polls" href="" routerLinkActive="active">Polls</a></li>
-                <li><a class="btn btn-link disabled" routerLink="help_center" href="" routerLinkActive="active">Help Center</a></li>
-            </ul>
+    <!-- Sub Header -->
+    <div class="m-b-sm" id="sub-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
 
-            <h2 class="h4">Tools</h2>
-            <ul class="list-unstyled">
-                <li><a class="btn btn-link disabled" href="/account/payments" routerLinkActive="active">Payment</a></li>
-                <li><a class="btn btn-link disabled" href="/account/profile" routerLinkActive="active">Profile</a></li>
-                <li><a class="btn btn-link" href="/account/logout">Logout</a></li>
-            </ul>
-        </aside>
-        <div class="main-content col-sm-12 col-md-10">
-            <router-outlet></router-outlet>
-        </div>
+        <h1 class="main-title h1">Dashboard</h1>
     </div>
+    <!-- FIN Sub Header -->
+
+    <div class="alert alert-info" role="alert">We haven't received any data just yet! Have you <a href="" routerLink="/install">installed our plug-in</a> correctly?</div>
+
+    <!-- Section: Stats -->
+    <section class="section-stats">
+        <header class="section-header text-center">
+            <h2>Stats</h2>
+        </header>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Modules</h3>
+                <p>Stats from Modules</p>
+            </div>
+            <div class="col-sm-6">
+                <h3>Actions</h3>
+                <p>Stats from Actions</p>
+            </div>
+        </div>
+    </section>
+    <!-- END Section: Stats -->
+
+    <!-- Section: Recent Activity -->
+    <section class="section-stats">
+        <header class="section-header text-center">
+            <h2>Recent Activity</h2>
+        </header>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Recent</h3>
+                <p>Recent interactions ordered by date and time.</p>
+            </div>
+            <div class="col-sm-4">
+                <h3>Popular</h3>
+                <p>The most popular interactions by your visitors.</p>
+            </div>
+            <div class="col-sm-4">
+                <h3>Needs review</h3>
+                <p>Important information that should be reviewed soon.</p>
+            </div>
+        </div>
+    </section>
+    <!-- END Section: Recent Activity -->
 </div>

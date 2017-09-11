@@ -1,10 +1,18 @@
 <div class="m-b-sm" id="sub-header">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/" href="#">Dashboard</a></li>
+        <li class="breadcrumb-item"><a routerLink="../" href="#">Module</a></li>
         <li class="breadcrumb-item active">Discussions</li>
     </ol>
 
-    <h1 class="main-title h1">Discussions</h1>
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="main-title h1">Discussions</h1>
+        </div>
+        <div class="col-sm-4 text-right">
+            <button routerLink="/preview/discussions" class="btn btn-primary btn-bordered">Preview</button>
+        </div>
+    </div>
 </div>
 
 <section class="section-channels">

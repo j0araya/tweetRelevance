@@ -4,11 +4,11 @@ import { Discussion } from './shared/discussion';
 import { MOCK_DISCUSSIONS } from './shared/mock-discussions';
 
 @Component({
-  selector: 'app-discussions',
-  templateUrl: './discussions.component.html',
-  styleUrls: ['./discussions.component.css']
+    selector: 'app-module-discussions',
+    templateUrl: './module-discussions.component.html',
+    styleUrls: ['./module-discussions.component.css']
 })
-export class DiscussionsComponent implements OnInit {
+export class ModuleDiscussionsComponent implements OnInit {
     page = 1;
     listOfDiscussions: Discussion[];
 
