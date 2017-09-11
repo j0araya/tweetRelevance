@@ -8,6 +8,10 @@
 </div>
 
 <section class="section-channels">
+    <ul>
+        <li *ngFor="let d of listOfDiscussions">{{d.id}} - {{d.name}} (#{{d.code}})</li>
+    </ul>
+
     <ngb-tabset>
         <ngb-tab title="Requests">
             <ng-template ngbTabContent>

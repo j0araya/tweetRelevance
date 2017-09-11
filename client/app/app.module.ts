@@ -11,7 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ModuleChatComponent } from './module-chat/module-chat.component';
 import { ModuleNoneComponent } from './module-none/module-none.component';
-import { ModuleDiscussionsComponent } from './module-discussions/module-discussions.component';
+import { DiscussionsComponent } from './discussions/discussions.component';
 import { ModuleNotesComponent } from './module-notes/module-notes.component';
 import { ModulePollsComponent } from './module-polls/module-polls.component';
 import { ModuleHelpCenterComponent } from './module-help-center/module-help-center.component';
@@ -38,7 +38,7 @@ const appRoutes: Routes = [
             },
             {
                 path: 'discussions',
-                component: ModuleDiscussionsComponent
+                component: DiscussionsComponent
             },
             {
                 path: 'notes',
@@ -74,7 +74,7 @@ const appRoutes: Routes = [
         PageNotFoundComponent,
         ModuleChatComponent,
         ModuleNoneComponent,
-        ModuleDiscussionsComponent,
+        DiscussionsComponent,
         ModuleNotesComponent,
         ModulePollsComponent,
         ModuleHelpCenterComponent
