@@ -509,80 +509,99 @@ span.label, div.label {
 
 
 
-/* ============= Navs ============= */
-.tabset-flex {
-    > .tab-content {
-        position: relative;
-
-        > .tab-pane {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-        }
-    }
-}
-.nav-tabs {
-    text-align: center;
-
-    > li {
-        font-size: 14px;
-        float: none;
-        display: inline-block;
-
-        // Actual tabs (as links)
-        > a {
-            padding: .5em 1em;
-            color: $color-grey-lighter;
-            border: none;
-            border-radius: 0;
-
-            .icono {
-                bottom: -2px;
-                left: -2px;
-            }
-
-            &:hover {
-                background: none;
-                border: none;
-                color: $color-grey;
-            }
-        }
-
-        // Active state, and its :hover to override normal :hover
+/* ============= List Groups ============= */
+.list-group {
+    .list-group-item {
         &.active {
-            > a {
-                &,
-                &:hover,
-                &:focus {
-                    color: $color-grey;
-                    background: none;
-                    border: none;
-                    border-bottom: 3px $brand-primary solid;
-                    cursor: default;
-                }
-            }
-        }
-        &.nav-tab-contrast {
-            &.active {
-                > a {
-                    &,
-                    &:hover,
-                    &:focus {
-                        color: white;
-                        background: rgba(0,0,0,.2);
-                        font-weight: lighter;
-                    }
-                }
-            }
-        }
-        &.only-icons {
-            > a {
-                .icono {
-                    bottom: auto;
-                    left: auto;
+            a {
+                color: white;
+                text-decoration: underline;
+
+                &:hover {
+                    color: white;
+                    text-decoration: none;
                 }
             }
         }
     }
 }
+
+
+
+/* ============= Navs ============= */
+// .tabset-flex {
+//     > .tab-content {
+//         position: relative;
+
+//         > .tab-pane {
+//             position: absolute;
+//             top: 0;
+//             bottom: 0;
+//             width: 100%;
+//         }
+//     }
+// }
+// .nav-tabs {
+//     text-align: center;
+
+//     > li {
+//         font-size: 14px;
+//         float: none;
+//         display: inline-block;
+
+//         // Actual tabs (as links)
+//         > a {
+//             padding: .5em 1em;
+//             color: $color-grey-lighter;
+//             border: none;
+//             border-radius: 0;
+
+//             .icono {
+//                 bottom: -2px;
+//                 left: -2px;
+//             }
+
+//             &:hover {
+//                 background: none;
+//                 border: none;
+//                 color: $color-grey;
+//             }
+//         }
+
+//         // Active state, and its :hover to override normal :hover
+//         &.active {
+//             > a {
+//                 &,
+//                 &:hover,
+//                 &:focus {
+//                     color: $color-grey;
+//                     background: none;
+//                     border: none;
+//                     border-bottom: 3px $brand-primary solid;
+//                     cursor: default;
+//                 }
+//             }
+//         }
+//         &.nav-tab-contrast {
+//             &.active {
+//                 > a {
+//                     &,
+//                     &:hover,
+//                     &:focus {
+//                         color: white;
+//                         background: rgba(0,0,0,.2);
+//                         font-weight: lighter;
+//                     }
+//                 }
+//             }
+//         }
+//         &.only-icons {
+//             > a {
+//                 .icono {
+//                     bottom: auto;
+//                     left: auto;
+//                 }
+//             }
+//         }
+//     }
+// }
