@@ -3,13 +3,13 @@
     "name": "db",
     "connector": "memory"
   },
-  "wenteract-db": {
+  "tweet-relevance-db": {
     "host": "localhost",
     "port": 27017,
     "url": "",
-    "database": "wenteract-db",
+    "database": "tweet-relevance-db",
     "password": "",
-    "name": "wenteract-db",
+    "name": "tweet-relevance-db",
     "user": "",
     "connector": "mongodb"
   },

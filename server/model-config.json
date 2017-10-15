@@ -19,34 +19,34 @@
     ]
   },
   "User": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": false
   },
   "userCredential": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": false
   },
   "userIdentity": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": false
   },
   "ACL": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": true,
     "options": {
       "remoting": {
@@ -58,7 +58,7 @@
   },
 
   "user": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": true,
     "options": {
       "emailVerificationRequired": true,
@@ -75,7 +75,7 @@
     "dataSource": "emailDs"
   },
   "Plan": {
-    "dataSource": "wenteract-db",
+    "dataSource": "tweet-relevance-db",
     "public": true
   }
 }

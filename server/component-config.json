@@ -1,6 +1,6 @@
 ﻿{
   "loopback-component-oauth2": {
-    "dataSource": "wenteractDb",
+    "dataSource": "tweetRelevanceDb",
     "authorizationServer": true,
     "resourceServer": true,
     "tokenPath": "/api/auth/oauth/token",

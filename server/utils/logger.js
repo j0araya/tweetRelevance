@@ -52,22 +52,22 @@ module.exports = function (moduleName) {
   }
 
   function error() {
-    winston.error(moment().format('DD-MM-YYYY HH:mm:ss'), 'wenteract:' + moduleName, ...arguments);
+    winston.error(moment().format('DD-MM-YYYY HH:mm:ss'), 'tweet-relevance:' + moduleName, ...arguments);
     //  debugError(err);
   }
 
   function info() {
-    winston.info(moment().format('DD-MM-YYYY HH:mm:ss'), 'wenteract:' + moduleName, ...arguments);
+    winston.info(moment().format('DD-MM-YYYY HH:mm:ss'), 'tweet-relevance:' + moduleName, ...arguments);
     //  debugInfo(msg);
   }
 
   function log() {
-    winston.log(moment().format('DD-MM-YYYY HH:mm:ss'), 'wenteract:' + moduleName, ...arguments);
+    winston.log(moment().format('DD-MM-YYYY HH:mm:ss'), 'tweet-relevance:' + moduleName, ...arguments);
     // debugLog(msg);
   }
 
   function warn() {
-    winston.warn(moment().format('DD-MM-YYYY HH:mm:ss'), 'wenteract:' + moduleName, ...arguments);
+    winston.warn(moment().format('DD-MM-YYYY HH:mm:ss'), 'tweet-relevance:' + moduleName, ...arguments);
     // debugWarm(msg);
   }
 

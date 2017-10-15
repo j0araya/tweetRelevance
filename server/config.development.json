@@ -50,7 +50,7 @@
       "enable": false,
       "options": {
         "level": "info",
-        "db": "mongodb://localhost/wenteract-db"
+        "db": "mongodb://localhost/tweet-relevance-db"
       }
     },
     "sentry": {

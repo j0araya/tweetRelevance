@@ -1,7 +1,7 @@
 {
-  "name": "wenteract",
+  "name": "tweet-relevance",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "",
   "main": "server/app.js",
   "scripts": {
     "ng": "ng",
@@ -59,6 +59,7 @@
     "rxjs": "^5.1.0",
     "socket.io": "^2.0.3",
     "stripe": "^4.25.0",
+    "twitter": "^1.7.1",
     "uuid": "^3.1.0",
     "winston": "^2.3.1",
     "winston-mongodb": "^2.0.10",
