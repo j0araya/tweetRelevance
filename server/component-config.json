@@ -1,9 +1,0 @@
-﻿{
-  "loopback-component-oauth2": {
-    "dataSource": "tweetRelevanceDb",
-    "authorizationServer": true,
-    "resourceServer": true,
-    "tokenPath": "/api/auth/oauth/token",
-    "addHttpHeaders": "X-"
-  }
-}
