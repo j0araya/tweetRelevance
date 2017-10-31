@@ -1,0 +1,16 @@
+/*-------------------------------------------------------------------------
+--------------------------------- Global ----------------------------------
+-------------------------------------------------------------------------*/
+#footer {
+    background-color: $color-space;
+    color: white;
+}
+
+
+
+// MEDIA QUERIES
+@include media-breakpoint-up(xs) {}
+@include media-breakpoint-up(sm) {}
+@include media-breakpoint-up(md) {}
+@include media-breakpoint-up(lg) {}
+@include media-breakpoint-up(xl) {}

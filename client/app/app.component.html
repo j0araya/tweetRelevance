@@ -1,0 +1,74 @@
+<!-- Wrapper -->
+<div class="wrapper-{{wrapper}}" id="wrap-{{wrap}}">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container-fluid">
+            <div class="p-y-xxs">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="logo pull-left">
+                            <a routerLink="/" href="">
+                                <img src="http://placehold.it/150x35" alt="Wenteract" title="Wenteract" width="150" height="35">
+                            </a>
+                        </div>
+                        <div class="user pull-left">
+                            <div ngbDropdown class="d-inline-block">
+                                <button class="btn btn-outline-primary" id="dropdownUser" ngbDropdownToggle>User Name</button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownUser">
+                                    <button routerLink="/account/profile" class="dropdown-item">Profile</button>
+                                    <button routerLink="/account/preferences" class="dropdown-item">Preferences</button>
+                                    <button routerLink="/account/payment" class="dropdown-item">Payment</button>
+                                    <button routerLink="/account/logout" class="dropdown-item">Logout</button>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="clearfix"></span>
+                    </div>
+                    <div class="col-sm-7">
+                        <ul class="list-inline m-b-0 text-right">
+                            <li class="list-inline-item"><a routerLink="dashboard" href="" routerLinkActive="active">Dashboard</a></li>
+                            <li class="list-inline-item"><a routerLink="module" href="" routerLinkActive="active">Modules</a></li>
+                            <li class="list-inline-item"><a routerLink="preview" href="" routerLinkActive="active">Preview</a></li>
+                            <li class="list-inline-item"><a routerLink="install" href="" routerLinkActive="active">Install</a></li>
+                            <li class="list-inline-item"><a href="https://medium.com" target="_blank">Learn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- END Header -->
+
+    <!-- Sub-header -->
+    <div id="sub-header" *ngIf="title">
+        <div class="container">
+            <h1>{{title}}</h1>
+        </div>
+    </div>
+    <!-- END Sub-header -->
+
+    <!-- Main -->
+    <main id="main">
+        <router-outlet></router-outlet>
+    </main>
+    <!-- END Main -->
+
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="text-center p-y-sm">
+                <div class="logo m-b-xs">
+                    <a routerLink="/" href="">
+                        <img src="http://placehold.it/150x35" alt="Wenteract" title="Wenteract" width="150" height="35">
+                    </a>
+                </div>
+                <p>This is an Alpha product, which means it's still in development and unstable. You may experience connection problems, data loss and wierd behaviour. Please use at your own discretion.</p>
+                <small>Alpha v0.1.0</small>
+            </div>
+        </div>
+    </footer>
+    <!-- END Footer -->
+</div>
+<!-- END Wrapper -->
