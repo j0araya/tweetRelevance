@@ -34,8 +34,10 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
+  'POST /room/:roomId/users': 'RoomController.join',
+  'DELETE /room/:roomId/users': 'RoomController.leave'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

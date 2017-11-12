@@ -17,6 +17,45 @@ module.exports.bootstrap = function (cb) {
     var T = new Twit(twitterCredentials);
     var stream = T.stream('statuses/sample')
     
+
+    // var socketIOClient = require('socket.io-client');
+    // var sailsIOClient = require('sails.io.js');
+    // var io = sailsIOClient(socketIOClient);
+    // io.sails.url = 'http://127.0.0.1:27017';
+    // io.socket.get('/hello', function serverResponded (body, JWR) {
+    //     // body === JWR.body
+    //     console.log('Sails responded with: ', body);
+    //     console.log('with headers: ', JWR.headers);
+    //     console.log('and with status code: ', JWR.statusCode);
+      
+    //     // ...
+    //     // more stuff
+    //     // ...
+      
+      
+    //     // When you are finished with `io.socket`, or any other sockets you connect manually,
+    //     // you should make sure and disconnect them, e.g.:
+    //     io.socket.disconnect();
+      
+    //     // (note that there is no callback argument to the `.disconnect` method)
+    //   });io.socket.get('/hello', function serverResponded (body, JWR) {
+    //     // body === JWR.body
+    //     console.log('Sails responded with: ', body);
+    //     console.log('with headers: ', JWR.headers);
+    //     console.log('and with status code: ', JWR.statusCode);
+      
+    //     // ...
+    //     // more stuff
+    //     // ...
+      
+      
+    //     // When you are finished with `io.socket`, or any other sockets you connect manually,
+    //     // you should make sure and disconnect them, e.g.:
+    //     io.socket.disconnect();
+      
+    //     // (note that there is no callback argument to the `.disconnect` method)
+    //   });
+
     stream.on('connect', request => {
         sails.log('Connecting...');
     });
@@ -25,7 +64,7 @@ module.exports.bootstrap = function (cb) {
         sails.log('Done!');
     });
 
-    stream.on('tweet', tweets);
+    // stream.on('tweet', tweets);
 
     function tweets(tweet) {
         var tempTweet = {
@@ -108,12 +147,40 @@ module.exports.bootstrap = function (cb) {
     stream.on('disconnect', disconnectMessage => {
         sails.log('disconnected...', disconnectMessage);
     });
-    // stream.on('user_event', (eventMsg) => {
-    //     sails.log(eventMsg);
-    // });
-    // stream.on('reconnect', (request, response, connectInterval) => {
-    //     //...
-    // });
+
+    var socketIOClient = require('socket.io-client');
+    var sailsIOClient = require('sails.io.js');
+    
+    // Instantiate the socket client (`io`)
+    // (for now, you must explicitly pass in the socket.io client when using this library from Node.js)
+    var io = sailsIOClient(socketIOClient);
+    
+    // Set some options:
+    // (you have to specify the host and port of the Sails backend when using this library from Node.js)
+    io.sails.url = 'http://localhost:4200';
+    // ...
+    
+    // Send a GET request to `http://localhost:1337/hello`:
+    io.socket.get('/socket/index', function serverResponded (body, JWR) {
+      // body === JWR.body
+      console.log('Sails responded with: ', body);
+      console.log('with headers: ', JWR.headers);
+      console.log('and with status code: ', JWR.statusCode);
+    
+      // ...
+      // more stuff
+      // ...
+    
+    
+      // When you are finished with `io.socket`, or any other sockets you connect manually,
+      // you should make sure and disconnect them, e.g.:
+      io.socket.disconnect();
+    
+      // (note that there is no callback argument to the `.disconnect` method)
+    });
+
+
+
 
     cb();
 };

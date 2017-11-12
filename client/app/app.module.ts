@@ -24,7 +24,7 @@ import { ModuleHelpCenterComponent } from './module/module-help-center/module-he
 import { PreviewComponent } from './preview/preview.component';
 import { PreviewDiscussionsComponent } from './preview/preview-discussions/preview-discussions.component';
 import { PreviewNoneComponent } from './preview/preview-none/preview-none.component';
-
+import { SocketService } from './service/socket.service';
 
 // Routes
 const appRoutes: Routes = [
@@ -137,7 +137,7 @@ const appRoutes: Routes = [
         FormsModule,
         HttpModule
     ],
-    providers: [],
+    providers: [SocketService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
