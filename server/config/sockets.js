@@ -106,12 +106,15 @@ module.exports.sockets = {
   * app's security.                                                          *
   *                                                                          *
   ***************************************************************************/
-  // beforeConnect: function(handshake, cb) {
-  //   // `true` allows the connection
-  //   return cb(null, true);
-  //
-  //   // (`false` would reject the connection)
-  // },
+  beforeConnect: function(handshake, cb) {
+    // `true` allows the connection
+    sails.log('Conectando socket....')
+    return cb(null, true);
+  
+    // (`false` would reject the connection)
+  },
+
+
 
 
   /***************************************************************************
@@ -136,6 +139,6 @@ module.exports.sockets = {
   * transport should be disabled.                                            *
   *                                                                          *
   ***************************************************************************/
-  // transports: ["polling", "websocket"]
+   transports: ["websocket","polling"]
 
 };

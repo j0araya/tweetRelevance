@@ -13,22 +13,33 @@ module.exports.bootstrap = function (cb) {
 
     var Twit = require('twit');
     var twitterCredentials = require('./twitterCredentials');
-    
+
     var T = new Twit(twitterCredentials);
     var stream = T.stream('statuses/sample')
-    
+
     stream.on('connect', request => {
         sails.log('Connecting...');
     });
-    
+
+    // var socket = require('socket.io-client')('http://localhost:1337')
+    // io.on('connection', (socket) => {
+    //     socket.on('message', (name, fn) => {
+    //         sails.log('brrrrrr',name,fn)
+    //     });
+    // });
+
     stream.on('connected', response => {
         sails.log('Done!');
     });
 
-    stream.on('tweet', tweets);
+    // var socket = require('socket.io-client')('http://localhost:4200');
+    // socket.on('connect', function(){
+    //     sails.log('hola');
+    // });
+    // stream.on('tweet', tweets);
 
     function tweets(tweet) {
-        var tempTweet = {
+        let tempTweet = {
             created_at: tweet.created_at, //fecha de creacion
             tweetId: tweet.id, // id Tweet
             strTweetId: tweet.id_str, // id como string
@@ -44,6 +55,7 @@ module.exports.bootstrap = function (cb) {
             //     screen_name: 'TwitterDev',
             //     //location: 'Internet',
             //     url: 'https://dev.twitter.com/',
+            //     profile_image_url_https: 'https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'
             //     //description: 'Your official source for Twitter Platform news, updates & events. Need technical help? Visit https://twittercommunity.com/ ⌨️ #TapIntoTwitter',
             //     verified: true,
             //     followers_count: 477684,
@@ -65,8 +77,9 @@ module.exports.bootstrap = function (cb) {
             replyCount: tweet.reply_count,
             favoriteCount: tweet.favorite_count,
             isFavorited: tweet.favorited, // si es favorito de una cuent autentificada
-            isRetweeted: tweet.retweeted, // si es retwiteado por una cuenta aitentificada
-            entities: tweet.entities
+            isRetweeted: tweet.retweeted, // si es retwiteado por una cuenta autentificada
+            entities: tweet.entities,
+            lang: tweet.lang
             // entities: {
             //     hashtags: [{
             //         text: 'hashtag',
@@ -100,10 +113,11 @@ module.exports.bootstrap = function (cb) {
             //     }]
             // }
         }
-        // if (tempTweet.isRetweeted) {
-
+        if (tempTweet.retweet) {            // si es retweet 
             sails.log(tempTweet);
-        // }
+        } else {                            // es un tweet nuevo
+            sails.log('es nuevo');
+        }
     }
     stream.on('disconnect', disconnectMessage => {
         sails.log('disconnected...', disconnectMessage);

@@ -7,8 +7,27 @@
 
 module.exports = {
 
-  attributes: {
-    name: 'string'
-  }
+    attributes: {
+        name: 'string',
+        created_at: 'string', //fecha de creacion del tweet
+        tweetId: 'integer', // id Tweet
+        strTweetId: 'string', // id como string
+        text: 'string', // texto del tweet
+        user: {
+            model: 'user',
+        },//tweet.user,
+        retweetCount: 'integer',
+        replyCount: 'integer',
+        favoriteCount: 'integer',
+        isFavorited: 'boolean', // si es favorito de una cuent autentificada
+        isRetweeted: 'boolean', // si es retweteado de una cuent autentificada
+        lang: 'string',
+        hastags: 'array',
+        urls: 'array',
+    },
+    aftercreate: (value, next) => {
+        Tweet.publishCreate(value);
+        next();
+    }
 };
 

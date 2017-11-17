@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes }   from '@angular/router';
-
 // Plugins
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
@@ -24,6 +23,7 @@ import { ModuleHelpCenterComponent } from './module/module-help-center/module-he
 import { PreviewComponent } from './preview/preview.component';
 import { PreviewDiscussionsComponent } from './preview/preview-discussions/preview-discussions.component';
 import { PreviewNoneComponent } from './preview/preview-none/preview-none.component';
+import { SocketService } from './service/socket/socket.service';
 
 
 // Routes
@@ -135,9 +135,9 @@ const appRoutes: Routes = [
         ),
         BrowserModule,
         FormsModule,
-        HttpModule
+        HttpModule,
     ],
-    providers: [],
+    providers: [SocketService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
