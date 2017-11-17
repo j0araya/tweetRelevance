@@ -21,22 +21,11 @@ module.exports.bootstrap = function (cb) {
         sails.log('Connecting...');
     });
 
-    // var socket = require('socket.io-client')('http://localhost:1337')
-    // io.on('connection', (socket) => {
-    //     socket.on('message', (name, fn) => {
-    //         sails.log('brrrrrr',name,fn)
-    //     });
-    // });
-
     stream.on('connected', response => {
         sails.log('Done!');
     });
 
-    // var socket = require('socket.io-client')('http://localhost:4200');
-    // socket.on('connect', function(){
-    //     sails.log('hola');
-    // });
-    // stream.on('tweet', tweets);
+    stream.on('tweet', tweets);
 
     function tweets(tweet) {
         let tempTweet = {
@@ -113,8 +102,12 @@ module.exports.bootstrap = function (cb) {
             //     }]
             // }
         }
-        if (tempTweet.retweet) {            // si es retweet 
-            sails.log(tempTweet);
+        if (tempTweet.retweet) {
+            Tweet.create(tempTweet).exec((err,data) =>  {
+                // sails.log('created', data)
+                // Tweet.message('new-tweet', data);
+            });           // si es retweet 
+            // sails.log(tempTweet.user.screen_name, ': ', tempTweet.text);
         } else {                            // es un tweet nuevo
             sails.log('es nuevo');
         }

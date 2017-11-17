@@ -4,16 +4,18 @@ import * as SailsIOClient from '/Users/jonathanaraya/Documents/www/tweetRelevanc
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
-
 @Injectable()
 export class SocketService {
     private url = 'http://localhost:1337';
-    private transports = ['websocket','polling'];
+    private transports = ['websocket', 'polling'];
     private autoConnect = true;
     private useCORSRouteToGetCookie = false;
+    public tweets;
     public io: SailsIOClient;
+    private subscriptors = new Subject<string>();
+    private newTweet = this.subscriptors.asObservable();
     // Observable<Response> ob = this.http.post(this.url+ '/user/create', { name:'bla'})
-    
+
     constructor() {
         this.io = SailsIOClient(SocketIOClient);
         this.io.sails.transports = this.transports;
@@ -24,56 +26,73 @@ export class SocketService {
             console.log('subscribe', data);
         });
     }
-    sendMessage(message) {
-        // this.socket.emit('message', message);
-        this.io.socket.post('/tweet/create', (a,b) => {
-            console.log(a,b);
+    // sendMessage(message) {
+    //     // this.socket.emit('message', message);
+    //     this.io.socket.post('/tweet/create', (a,b) => {
+    //         console.log(a,b);
+    //     });
+    // }
+
+
+    getTweets() {
+        // return new Observable(observer => {
+        // io.socket = io.sails.connect();
+        // this.io.socket.on('new-tweet', tweet => {
+        //     console.log('new-tweet', tweet);
+        //     return new Tweet(tweet);
+        // })
+        // this.io.socket.on('connect', () => {
+        //     console.log('conectado');
+        //     // io.socket.emit('message', { text: 'emit' });
+        // });
+        return Observable.create((observer: any) => {
+            return this.io.socket.on('tweet', (tweet: any) => {
+                observer.next({ action: "new-tweet", item: tweet })
+                return () => this.io.socket.close();
+            });
+            // this.io.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }) );
+            // return () => this.io.socket.close();
         });
-    }
-
-
-    getMessages() {
-        let observable = new Observable(observer => {
-            // io.socket = io.sails.connect();
-            this.io.socket.on('new-tweet', (data) => {
-                console.log('uer', data);
-                // observer.next(data);
-            });
-            this.io.socket.on('connect', () => {
-                console.log('conectado');
-                // io.socket.emit('message', { text: 'emit' });
-            });
-            this.io.socket.on('tweet', (data) => {
-                console.log('nuevo tweet', data);
-            });
-            this.io.socket.on('disconnect', () => {
-                console.log('disconnected...');
-            });
-            // return () => {
-            //     io.socket.disconnect();
-            // };
-        })
-        return observable;
+        // this.io.socket.on('tweet', (data) => {
+        //     console.log('nuevo tweet', data);
+        //     return new Tweet(data);
+        // });
+        // this.subscriptors.next()
+        // this.io.socket.on('disconnect', () => {
+        //     console.log('disconnected...');
+        // });
+        // return () => {
+        //     io.socket.disconnect();
+        // };
+        // });
+        // return observable;
     }
 }
-    // constructor() {
-    //     this.socket = io(this.url);
-    // }
-    // ngOnInit() {
 
-        // this.socket.emit('connect', 'aaaa');
-        // this.socket.on('connection', (socket) => {
-        //     let token = socket.handshake.query.token;
-        //     console.log('token', token)
-        // });
-        // let observable = new Observable(observer => {
-        //     this.socket = io(this.url);
-        //     this.socket.on('message', (data) => {
-        //         observer.next(data);
-        //     });
-        //     return () => {
-        //         this.socket.disconnect();
-        //     };
-        // });
-//     }
-// }
+export class Tweet {
+    public id: string;
+    public created_at: string;//fecha de creacion del tweet
+    public tweetId: number; // id Tweet
+    public strTweetId: string; // id como string
+    public text: string; // texto del tweet
+    public user: object;
+    public retweetCount: number;
+    public replyCount: number;
+    public favoriteCount: number;
+    public isFavorited: boolean; // si es favorito de una cuent autentificada
+    public isRetweeted: boolean; // si es retweteado de una cuent autentificada
+    public lang: string;
+    public hastags: string[];
+    public urls: object[];
+
+    constructor(tweet) {
+        this.id = tweet.id;
+        this.created_at = tweet.created_at;
+        this.text = tweet.text;
+        this.user = tweet.user;
+        this.retweetCount = tweet.retweetCount;
+        this.replyCount = tweet.replyCount;
+        this.favoriteCount = tweet.favoriteCount;
+        this.isFavorited = tweet.isFavorited;
+    }
+}

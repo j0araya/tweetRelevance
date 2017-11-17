@@ -26,7 +26,6 @@ module.exports = {
         urls: 'array',
     },
     afterCreate: (value, next) => {
-        // Tweet.publishCreate(value);
         Tweet.message('new-tweet', value);
         next();
     }

@@ -11,7 +11,6 @@ module.exports = {
             return res.badRequest();
         }
         Tweet.subscribe(req, 'new-tweet');
-        // Tweet.message('new-tweet', { status: 'connected' });
         return res.send({ connected: req.isSocket });
     }
 };
