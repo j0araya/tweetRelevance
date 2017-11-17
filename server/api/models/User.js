@@ -11,10 +11,10 @@ module.exports = {
 
     },
     afterCreate: (value, next) => {
-        User.publishCreate(value);
-        // next();
-        User.message('message', value);
-        sails.log('hila');
+        // User.publishCreate(value);
+        // // next();
+        // User.message('message', value);
+        // sails.log('hila');
         next();
     }
 };

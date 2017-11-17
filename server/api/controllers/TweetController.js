@@ -6,21 +6,13 @@
  */
 
 module.exports = {
-    join: (req, res) => {
-        sails.log('aaaaaaaaaaaaaaaaaaaaaaaaa');
+    subscribe: (req, res) => {
         if (!req.isSocket) {
             return res.badRequest();
         }
-        // var roomName = req.param('roomName');
-        sails.sockets.join(req, 'tweets', (err) => {
-            if (err) {
-                return res.serverError(err);
-            }
-
-            return res.json({
-                message: 'Subscribed to a fun room called ' + 'tweets' + '!'
-            });
-        });
+        Tweet.subscribe(req, 'new-tweet');
+        // Tweet.message('new-tweet', { status: 'connected' });
+        return res.send({ connected: req.isSocket });
     }
 };
 

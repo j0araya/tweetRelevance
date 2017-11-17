@@ -25,8 +25,9 @@ module.exports = {
         hastags: 'array',
         urls: 'array',
     },
-    aftercreate: (value, next) => {
-        Tweet.publishCreate(value);
+    afterCreate: (value, next) => {
+        // Tweet.publishCreate(value);
+        Tweet.message('new-tweet', value);
         next();
     }
 };

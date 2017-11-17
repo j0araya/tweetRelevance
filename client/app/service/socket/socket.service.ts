@@ -3,8 +3,6 @@ import * as SocketIOClient from 'socket.io-client';
 import * as SailsIOClient from '/Users/jonathanaraya/Documents/www/tweetRelevance/server/.tmp/public/js/dependencies/sails.io.js';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-
 
 
 @Injectable()
@@ -13,8 +11,7 @@ export class SocketService {
     private transports = ['websocket','polling'];
     private autoConnect = true;
     private useCORSRouteToGetCookie = false;
-    public socket: any;
-    public io;
+    public io: SailsIOClient;
     // Observable<Response> ob = this.http.post(this.url+ '/user/create', { name:'bla'})
     
     constructor() {
@@ -23,39 +20,22 @@ export class SocketService {
         this.io.sails.url = this.url;
         this.io.sails.autoConnect = this.autoConnect;
         this.io.sails.useCORSRouteToGetCookie = this.useCORSRouteToGetCookie;
-        // this.io.socket.on('message', (data) => {
-        //     console.log('uer', data);
-        //     // observer.next(data);
-        // });
-        // this.io.socket.on('connect', () => {
-        //     console.log('conectado');
-        //     // io.socket.emit('message', { text: 'emit' });
-        // });
-        // this.io.socket.on('user', (data) => {
-        //     console.log('uer', data);
-        // });
-        // this.io.socket.on('disconnect', () => {
-        //     console.log('disconnect...');
-        // });
+        this.io.socket.post('/tweet/subscribe', data => {
+            console.log('subscribe', data);
+        });
     }
-
     sendMessage(message) {
         // this.socket.emit('message', message);
-        this.io.socket.post('/user/create', (a,b) => {
+        this.io.socket.post('/tweet/create', (a,b) => {
             console.log(a,b);
-        })
+        });
     }
-    join() {
-        this.io.socket.post('/user/subscribe', (a,b) => {
-            console.log(a,b);
-        })
-        
-    }
+
 
     getMessages() {
         let observable = new Observable(observer => {
             // io.socket = io.sails.connect();
-            this.io.socket.on('message', (data) => {
+            this.io.socket.on('new-tweet', (data) => {
                 console.log('uer', data);
                 // observer.next(data);
             });
@@ -63,11 +43,11 @@ export class SocketService {
                 console.log('conectado');
                 // io.socket.emit('message', { text: 'emit' });
             });
-            this.io.socket.on('user', (data) => {
-                console.log('uer', data);
+            this.io.socket.on('tweet', (data) => {
+                console.log('nuevo tweet', data);
             });
             this.io.socket.on('disconnect', () => {
-                console.log('disconnect...');
+                console.log('disconnected...');
             });
             // return () => {
             //     io.socket.disconnect();
