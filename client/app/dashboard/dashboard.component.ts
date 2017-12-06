@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http } from "@angular/http";
 import { SocketService } from '../service/socket/socket.service';
 
 

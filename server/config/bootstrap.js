@@ -25,7 +25,7 @@ module.exports.bootstrap = function (cb) {
         sails.log('Done!');
     });
 
-    stream.on('tweet', tweets);
+    // stream.on('tweet', tweets);
 
     function tweets(tweet) {
         let tempTweet = {

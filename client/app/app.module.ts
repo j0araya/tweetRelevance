@@ -2,11 +2,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 import { RouterModule, Routes }   from '@angular/router';
 // Plugins
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 
 // Main Components
 import { AppComponent } from './app.component';
@@ -127,7 +128,6 @@ const appRoutes: Routes = [
         PreviewNoneComponent
     ],
     imports: [
-        NgbModule.forRoot(),
         Angular2FontawesomeModule,
         RouterModule.forRoot(
             appRoutes,
@@ -135,7 +135,8 @@ const appRoutes: Routes = [
         ),
         BrowserModule,
         FormsModule,
-        HttpModule,
+        MatButtonModule, 
+        MatCheckboxModule,
     ],
     providers: [SocketService],
     bootstrap: [AppComponent]
