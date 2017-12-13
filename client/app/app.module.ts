@@ -7,8 +7,10 @@ import { RouterModule, Routes }   from '@angular/router';
 // Plugins
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
-
+import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCard } from '@angular/material';
+import { MatListModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
+import { MatGridListModule } from '@angular/material';
 // Main Components
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -25,6 +27,8 @@ import { PreviewComponent } from './preview/preview.component';
 import { PreviewDiscussionsComponent } from './preview/preview-discussions/preview-discussions.component';
 import { PreviewNoneComponent } from './preview/preview-none/preview-none.component';
 import { SocketService } from './service/socket/socket.service';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { TweetComponent } from './tweet/tweet.component'
 
 
 // Routes
@@ -125,7 +129,8 @@ const appRoutes: Routes = [
         InstallComponent,
         PreviewComponent,
         PreviewDiscussionsComponent,
-        PreviewNoneComponent
+        PreviewNoneComponent,
+        TweetComponent
     ],
     imports: [
         Angular2FontawesomeModule,
@@ -137,6 +142,11 @@ const appRoutes: Routes = [
         FormsModule,
         MatButtonModule, 
         MatCheckboxModule,
+        MatToolbarModule,
+        MatListModule,
+        MatCardModule,
+        MatGridListModule,
+        ChartsModule,
     ],
     providers: [SocketService],
     bootstrap: [AppComponent]

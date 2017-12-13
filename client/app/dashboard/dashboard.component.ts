@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SocketService } from '../service/socket/socket.service';
+import { MatButtonModule } from '@angular/material';
 
 
 declare var io: any;
 
 @Component({
     selector: 'app-dashboard',
-    // templateUrl: './dashboard.component.html',
-    template: `<div *ngFor="let tweet of tweets">
-                    {{tweet.text}}
-                </div>`,
+    templateUrl: './dashboard.component.html',
+    // template: `<div *ngFor="let tweet of tweets">
+    //                 {{tweet.text}}
+    //             </div>`,
     styleUrls: ['./dashboard.component.css'],
-    providers: [SocketService]
+    providers: []
 })
 
 export class DashboardComponent implements OnInit, OnDestroy {
@@ -19,18 +19,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     connection;
     // message;
 
-    constructor(private SocketService: SocketService) { }
+    constructor() { }
 
     ngOnInit() {
-        this.connection = this.SocketService.getTweets().subscribe(
-            (tweet) => {
-                console.log(tweet);
-                switch (tweet.action) {
-                    case ('new-tweet'):
-                        this.tweets.push(tweet.item.data);
-                        break;
-                }
-            });
+        // this.connection = this.SocketService.getTweets().subscribe(
+        //     (tweet) => {
+        //         console.log(tweet);
+        //         switch (tweet.action) {
+        //             case ('new-tweet'):
+        //                 this.tweets.push(tweet.item.data);
+        //                 break;
+        //         }
+        //     });
     }
 
     ngOnDestroy() {

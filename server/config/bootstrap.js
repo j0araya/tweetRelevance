@@ -25,6 +25,12 @@ module.exports.bootstrap = function (cb) {
         sails.log('Done!');
     });
 
+    setInterval(() => {
+        SystemService.getDinamicData().then(data => {
+            sails.log('cpu',data);
+            sails.sockets.broadcast('system', 'sys-dinamic', { data: data });
+        })
+    }, 4000);
     // stream.on('tweet', tweets);
 
     function tweets(tweet) {
@@ -36,6 +42,7 @@ module.exports.bootstrap = function (cb) {
             replyFromTweetId: tweet.in_reply_to_status_id, // (null || id)
             replyFromUserId: tweet.in_reply_to_user_id, // (null || id)
             replyFromUserScreenName: tweet.in_reply_to_screen_name, // (null || id)
+            userId: tweet.user,
             user: tweet.user,
             // user: {
             //     id: 2244994945,
@@ -103,13 +110,13 @@ module.exports.bootstrap = function (cb) {
             // }
         }
         if (tempTweet.retweet) {
-            Tweet.create(tempTweet).exec((err,data) =>  {
+            Tweet.create(tempTweet).exec((err, data) => {
                 // sails.log('created', data)
                 // Tweet.message('new-tweet', data);
             });           // si es retweet 
             // sails.log(tempTweet.user.screen_name, ': ', tempTweet.text);
         } else {                            // es un tweet nuevo
-            sails.log('es nuevo');
+            // sails.log('es nuevo');
         }
     }
     stream.on('disconnect', disconnectMessage => {

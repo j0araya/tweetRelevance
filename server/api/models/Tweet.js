@@ -13,9 +13,11 @@ module.exports = {
         tweetId: 'integer', // id Tweet
         strTweetId: 'string', // id como string
         text: 'string', // texto del tweet
-        user: {
+        userId: {
             model: 'user',
         },//tweet.user,
+
+        user: 'json',
         retweetCount: 'integer',
         replyCount: 'integer',
         favoriteCount: 'integer',
