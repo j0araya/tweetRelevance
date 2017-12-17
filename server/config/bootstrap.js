@@ -27,7 +27,7 @@ module.exports.bootstrap = function (cb) {
 
     setInterval(() => {
         SystemService.getDinamicData().then(data => {
-            sails.log('cpu',data);
+            sails.log('system data sended!');
             sails.sockets.broadcast('system', 'sys-dinamic', { data: data });
         })
     }, 4000);

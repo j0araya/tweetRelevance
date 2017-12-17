@@ -98,25 +98,28 @@ adadadad
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
+    <!-- <mat-grid-tile>
+        
+    </mat-grid-tile>
+    <mat-grid-tile>4</mat-grid-tile> -->
 </mat-grid-list>
-
-
 <div *ngFor="let tweet of tweets">
-    <!-- {{tweet.text}} -->
-    <div class="resp">
-        <blockquote class="twitter-tweet">
-            <p lang="en" dir="ltr">{{ tweet.text }}
-                <!-- <a href="https://twitter.com/YosemiteNPS">@YosemiteNPS</a>. -->
-                <!-- <a *ngFor="let ht of tweet.entities.hashtags" href="https://twitter.com/hashtag/?src=hash">
-                    #{{ht.text}}
-                </a>
-                <a *ngFor="let um of tweet.entities.user_mentions"> 
-                    @{{ um.screen_name}}
-                </a> -->
-            </p>&mdash; {{ tweet.user.name }} (@{{tweet.user.screen_name}})
-            <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.tweetId}}">{{ tweet.created_at | date: 'dd/MM/yyy' }}</a>
-        </blockquote>
-    </div>
-</div>
+        <!-- {{tweet.text}} -->
+            <div class="resp">
+                <blockquote class="twitter-tweet">
+                    <p lang="en" dir="ltr">{{ tweet.text }}
+                        <!-- <a href="https://twitter.com/YosemiteNPS">@YosemiteNPS</a>. -->
+                        <!-- <a *ngFor="let ht of tweet.entities.hashtags" href="https://twitter.com/hashtag/?src=hash">
+                            #{{ht.text}}
+                        </a>
+                        <a *ngFor="let um of tweet.entities.user_mentions"> 
+                            @{{ um.screen_name}}
+                        </a> -->
+                    </p>&mdash; {{ tweet.user.name }} (@{{tweet.user.screen_name}})
+                    <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.tweetId}}">{{ tweet.created_at | date: 'dd/MM/yyy' }}</a>
+                </blockquote>
+            </div>
+        </div>
+
+
+

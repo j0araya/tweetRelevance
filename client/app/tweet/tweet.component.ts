@@ -45,8 +45,14 @@ export class TweetComponent implements OnInit, OnDestroy {
         this.SocketService.getTweets().subscribe(
             (tweet) => {
                 console.log(tweet);
+                if (tweet.item.data.retweet.retweet_count < 100000) {
+                    return;
+                }              
                 switch (tweet.action) {
                     case ('new-tweet'):
+                        if (this.tweets.length > 10) {
+                            this.tweets.shift();
+                        }
                         this.tweets.push(tweet.item.data);
                         break;
                 }
@@ -76,7 +82,7 @@ export class TweetComponent implements OnInit, OnDestroy {
             used = used / (1024 * 1024);
             // this.pieChartLabels = [ parseInt(system.data[3][0].use)', 'Usado: ' + parseInt(100 - system.data[3][0].use) + '%']
             // this.diskUsage = parseInt(system.data[3][0].use);
-            this.pieChartData = [ this.diskSize - used, used]
+            this.pieChartData = [this.diskSize - used, used]
         });
         // this.SocketService.getSystemInfo().subscribe(
         //     (system) => {
