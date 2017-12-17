@@ -2,9 +2,13 @@
 
 Identificación de tweets relevantes en tiempo real.
 
-## Download Project
+## Download Project 
 
 `git clone https://github.com/jonathanAraya/tweetRelevance.git` on project folder. 
+
+## Change Branch
+
+`git checkout develop`
 
 ## Setup
 
