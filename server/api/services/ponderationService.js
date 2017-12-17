@@ -68,7 +68,7 @@ module.exports = {
         });
     },
     hashtagsPonderation: (hashtags) => {
-        return Array.isArray(urls) ? 100 : 0;
+        return Array.isArray(hashtags) ? 100 : 0;
     },
     getHashtags: (hashtags) => {
         return hashtags.map(h => h.text);
