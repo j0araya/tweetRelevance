@@ -25,18 +25,18 @@ module.exports.bootstrap = function (cb) {
         sails.log('Done!');
     });
 
-    setInterval(() => {
-        SystemService.getDinamicData().then(data => {
-            sails.log('system data sended!');
-            sails.sockets.broadcast('system', 'sys-dinamic', { data: data });
-        })
-    }, 4000);
+    // setInterval(() => {
+    //     SystemService.getDinamicData().then(data => {
+    //         sails.log('system data sended!');
+    //         sails.sockets.broadcast('system', 'sys-dinamic', { data: data });
+    //     })
+    // }, 4000);
     // stream.on('tweet', tweets);
 
     function tweets(tweet) {
         let tempTweet = {
             created_at: tweet.created_at, //fecha de creacion
-            tweetId: tweet.id, // id Tweet
+            // tweetId: tweet.id, // id Tweet
             strTweetId: tweet.id_str, // id como string
             text: tweet.text, // texto del tweet
             replyFromTweetId: tweet.in_reply_to_status_id, // (null || id)
@@ -74,7 +74,7 @@ module.exports.bootstrap = function (cb) {
             favoriteCount: tweet.favorite_count,
             isFavorited: tweet.favorited, // si es favorito de una cuent autentificada
             isRetweeted: tweet.retweeted, // si es retwiteado por una cuenta autentificada
-            entities: tweet.entities,
+            // entities: tweet.entities,
             lang: tweet.lang
             // entities: {
             //     hashtags: [{
@@ -110,8 +110,9 @@ module.exports.bootstrap = function (cb) {
             // }
         }
         if (tempTweet.retweet) {
-            Tweet.create(tempTweet).exec((err, data) => {
-                // sails.log('created', data)
+            sails.log(tempTweet.retweet);
+            Tweet2.create(tempTweet).exec((err, data) => {
+                sails.log('created', err, data)
                 // Tweet.message('new-tweet', data);
             });           // si es retweet 
             // sails.log(tempTweet.user.screen_name, ': ', tempTweet.text);
