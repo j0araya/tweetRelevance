@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-    connection: 'mongoDevelop',
+    connection: 'PostgresqlDevelop',
     attributes: {
         name: 'string',
         created_at: 'string', //fecha de creacion del tweet
@@ -27,9 +27,9 @@ module.exports = {
         hastags: 'array',
         urls: 'array',
     },
-    // afterCreate: (value, next) => {
-    //     Tweet.message('new-tweet', value);
-    //     next();
-    // }
+    afterCreate: (value, next) => {
+        Tweet.message('new-tweet', value);
+        next();
+    }
 };
 

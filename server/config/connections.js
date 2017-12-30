@@ -70,7 +70,15 @@ module.exports.connections = {
     port: 27017,
     // user: '',
     database: 'tweet-relevance-db',
-},
+  },
+
+  PostgresqlDevelop: {
+    adapter: 'sails-postgresql',
+    host: 'localhost',
+    user: 'postgres',
+    password: 'tesis123',
+    database: 'tweet-relevance-db'
+  }
 
   /***************************************************************************
   *                                                                          *

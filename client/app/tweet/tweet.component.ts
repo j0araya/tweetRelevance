@@ -45,15 +45,18 @@ export class TweetComponent implements OnInit, OnDestroy {
         this.SocketService.getTweets().subscribe(
             (tweet) => {
                 console.log(tweet);
-                if (tweet.item.data.retweet.retweet_count < 100000) {
+                if (tweet.item.data.retweet.retweet_count < 30000) {
                     return;
-                }              
+                } 
+                if (Array.isArray(tweet.item.data.retweet.entities.urls) && !tweet.item.data.retweet.entities.urls.length) {
+                    return;
+                }           
                 switch (tweet.action) {
                     case ('new-tweet'):
                         if (this.tweets.length > 10) {
-                            this.tweets.shift();
+                            this.tweets.pop();
                         }
-                        this.tweets.push(tweet.item.data);
+                        this.tweets.unshift(tweet.item.data);
                         break;
                 }
             });
