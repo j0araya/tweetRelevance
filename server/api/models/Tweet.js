@@ -14,7 +14,8 @@ module.exports = {
         strTweetId: 'string', // id como string
         text: 'string', // texto del tweet
         userId: {
-            model: 'user',
+            type:'string',
+            // model: 'user',
         },//tweet.user,
 
         user: 'json',
@@ -26,6 +27,12 @@ module.exports = {
         lang: 'string',
         hastags: 'array',
         urls: 'array',
+
+        normFavorite: 'integer', 
+        normReply: 'integer', 
+        normRetweet: 'integer', 
+        normQuote: 'integer',
+        normTotal: 'integer', 
     },
     // afterCreate: (value, next) => {
     //     Tweet.message('new-tweet', value);

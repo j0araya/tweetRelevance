@@ -16,6 +16,7 @@ import { MatGridListModule } from '@angular/material';
 
 export class TweetComponent implements OnInit, OnDestroy {
     public tweets = [];
+    public tweetList = [];
     public system = {};
     public memUsage = {};
     public diskUsage = {};
@@ -33,6 +34,33 @@ export class TweetComponent implements OnInit, OnDestroy {
         { data: [0], label: 'Anterior' },
         { data: [0], label: 'Actual' }
     ];
+
+    public radarChartLabels: string[] = ['Retweet', 'Replies', 'Favorite', 'Menciones'];
+
+    public radarChartData: any = [
+        { data: [0, 0, 0, 0], label: 'Series 1' },
+        { data: [0, 0, 0, 0], label: 'Series 2' },
+        { data: [0, 0, 0, 0], label: 'Series 3' },
+        { data: [0, 0, 0, 0], label: 'Series 4' },
+        { data: [0, 0, 0, 0], label: 'Series 5' },
+        { data: [0, 0, 0, 0], label: 'Series 6' },
+        { data: [0, 0, 0, 0], label: 'Series 7' },
+        { data: [0, 0, 0, 0], label: 'Series 8' },
+        { data: [0, 0, 0, 0], label: 'Series 9' },
+        { data: [0, 0, 0, 0], label: 'Series 10' },
+    ];
+    public radarChartType: string = 'radar';
+
+    // events
+    public chartClicked(e: any): void {
+        console.log(e);
+    }
+
+    public chartHovered(e: any): void {
+        console.log(e);
+    }
+
+
     public cpuUsage: number = 0;
     // disco 
     public pieChartLabels: string[] = ['Libre', 'Usado'];
@@ -45,21 +73,58 @@ export class TweetComponent implements OnInit, OnDestroy {
         this.SocketService.getTweets().subscribe(
             (tweet) => {
                 console.log(tweet);
-                if (tweet.item.data.retweet.retweet_count < 30000) {
-                    return;
-                } 
-                if (Array.isArray(tweet.item.data.retweet.entities.urls) && !tweet.item.data.retweet.entities.urls.length) {
-                    return;
-                }           
-                switch (tweet.action) {
+                // if (tweet.item.data.retweet.retweet_count < 30000) {
+                //     return;
+                // } 
+                // if (Array.isArray(tweet.item.data.retweet.entities.urls) && !tweet.item.data.retweet.entities.urls.length) {
+                //     return;
+                // }           
+                switch (tweet.item.id) {
                     case ('new-tweet'):
-                        if (this.tweets.length > 10) {
-                            this.tweets.pop();
-                        }
-                        this.tweets.unshift(tweet.item.data);
+                        // if (this.tweets.length > 10) {
+                        //     this.tweets.pop();
+                        // }
+                        // this.tweets.unshift(tweet.item.data);
                         break;
+                    case ('new-list'):
+
+                        this.tweetList = tweet.item.data.list.map(t => {
+                            t.radarChartData = [{
+                                data: [
+                                    t.normRetweet.toFixed(3),
+                                    t.normReply.toFixed(3),
+                                    t.normFavorite.toFixed(3),
+                                    t.normQuote.toFixed(3)
+                                ],
+                                label: 'Normalized: ' + t.normTotal.toFixed(3)
+                            }];
+                            return t;
+                        });
+                        let tempData = [];
+                        tweet.item.data.list.forEach((t, index) => {
+                            tempData.push({
+                                data: [
+                                    t.normRetweet.toFixed(3),
+                                    t.normReply.toFixed(3),
+                                    t.normFavorite.toFixed(3),
+                                    t.normQuote.toFixed(3)
+                                ],
+                                label: index + 1 + ''
+                            });
+                            // t.radarChartData = [
+                            //     { data: [t.normRetweet, t.normReply, t.normFavorite, t.normQuote], label: 'Normalized: ' + t.normTotal },
+                            // ]
+                            // return t;
+                        });
+                        this.radarChartData = tempData;
+
                 }
             });
+        this.SocketService.getTweetsList().subscribe(
+            (tweet) => {
+                console.log('list', tweet);
+            }
+        )
         this.SocketService.getStaticSystemInfo().subscribe(system => {
             console.log('sysa', system.data)
             this.system = system.data;

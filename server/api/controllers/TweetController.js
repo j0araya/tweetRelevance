@@ -10,7 +10,8 @@ module.exports = {
         if (!req.isSocket) {
             return res.badRequest();
         }
-        Tweet.subscribe(req, 'new-tweet');
+        Tweet.subscribe(req, 'new-list');
+        // Tweet.subscribe(req, 'new-tweet');
         return res.send({ connected: req.isSocket });
     }
 };

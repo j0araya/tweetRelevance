@@ -103,11 +103,22 @@
     </mat-grid-tile>
     <mat-grid-tile>4</mat-grid-tile> -->
 </mat-grid-list>
-<div *ngFor="let tweet of tweets">
+<div style="display: block">
+    <canvas baseChart
+            [datasets]="radarChartData"
+            [labels]="radarChartLabels"
+            [chartType]="radarChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+        </canvas>
+  </div>
+
+<div *ngFor="let tweet of tweetList">
 <!-- {{tweet.text}} -->
     <div class="resp">
         <blockquote class="twitter-tweet">
-            <p lang="en" dir="ltr">{{ tweet.text }}
+            <p *ngIf="tweet.extended_tweet" lang="en" dir="ltr">{{ tweet.extended_tweet.full_text ||  tweet.text }}
+            <p *ngIf="!tweet.extended_tweet" lang="en" dir="ltr">{{ tweet.text }}
                 <!-- <a href="https://twitter.com/YosemiteNPS">@YosemiteNPS</a>. -->
                 <!-- <a *ngFor="let ht of tweet.entities.hashtags" href="https://twitter.com/hashtag/?src=hash">
                     #{{ht.text}}
@@ -116,12 +127,21 @@
                     @{{ um.screen_name}}
                 </a> -->
             </p>&mdash; {{ tweet.user.name }} (@{{tweet.user.screen_name}})
-            <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.retweet.id}}">{{ tweet.created_at | date: 'dd/MM/yyy' }}</a>
+            <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.user.id}}">{{ tweet.created_at | date: 'dd/MM/yyy' }}</a>
             
-                <br/>RT: {{tweet.retweet.retweet_count}} | RP: {{ tweet.retweet.reply_count}} | F: {{  tweet.retweet.favorite_count }}
+                <br/>RT: {{tweet.retweet_count}} | RP: {{ tweet.reply_count}} | FV: {{  tweet.favorite_count }} | Q: {{  tweet.quote_count }}
                 
             
         </blockquote>
+        <!-- <div style="display: block">
+            <canvas baseChart
+                    [datasets]="tweet.radarChartData"
+                    [labels]="radarChartLabels"
+                    [chartType]="radarChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+                </canvas>
+          </div> -->
     </div>
 </div>
 

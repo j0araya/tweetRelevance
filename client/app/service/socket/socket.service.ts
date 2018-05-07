@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as SocketIOClient from 'socket.io-client';
-import * as SailsIOClient from '/Users/jonathanaraya/Documents/www/tweetRelevance/server/.tmp/public/js/dependencies/sails.io.js';
+import * as SailsIOClient from 'sails.io.js-dist';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
@@ -66,40 +66,49 @@ export class SocketService {
             // });
         });
     }
-
+    getTweetsList() {
+        return Observable.create((observer: any) => {
+            return this.io.socket.on('tweet', (list: any) => {
+                observer.next({ action: "tweet-list", item: list })
+                // return () => this.io.socket.close();
+            });
+            // this.io.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }) );
+            // return () => this.io.socket.close();
+        });
+    }
     getTweets() {
-                // return new Observable(observer => {
-                // io.socket = io.sails.connect();
-                // this.io.socket.on('new-tweet', tweet => {
-                //     console.log('new-tweet', tweet);
-                //     return new Tweet(tweet);
-                // })
-                // this.io.socket.on('connect', () => {
-                //     console.log('conectado');
-                //     // io.socket.emit('message', { text: 'emit' });
-                // });
-                return Observable.create((observer: any) => {
-                    return this.io.socket.on('tweet', (tweet: any) => {
-                        observer.next({ action: "new-tweet", item: tweet })
-                        // return () => this.io.socket.close();
-                    });
-                    // this.io.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }) );
-                    // return () => this.io.socket.close();
-                });
-                // this.io.socket.on('tweet', (data) => {
-                //     console.log('nuevo tweet', data);
-                //     return new Tweet(data);
-                // });
-                // this.subscriptors.next()
-                // this.io.socket.on('disconnect', () => {
-                //     console.log('disconnected...');
-                // });
-                // return () => {
-                //     io.socket.disconnect();
-                // };
-                // });
-                // return observable;
-            }
+        // return new Observable(observer => {
+        // io.socket = io.sails.connect();
+        // this.io.socket.on('new-tweet', tweet => {
+        //     console.log('new-tweet', tweet);
+        //     return new Tweet(tweet);
+        // })
+        // this.io.socket.on('connect', () => {
+        //     console.log('conectado');
+        //     // io.socket.emit('message', { text: 'emit' });
+        // });
+        return Observable.create((observer: any) => {
+            return this.io.socket.on('tweet', (tweet: any) => {
+                observer.next({ action: "new-tweet", item: tweet })
+                // return () => this.io.socket.close();
+            });
+            // this.io.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }) );
+            // return () => this.io.socket.close();
+        });
+        // this.io.socket.on('tweet', (data) => {
+        //     console.log('nuevo tweet', data);
+        //     return new Tweet(data);
+        // });
+        // this.subscriptors.next()
+        // this.io.socket.on('disconnect', () => {
+        //     console.log('disconnected...');
+        // });
+        // return () => {
+        //     io.socket.disconnect();
+        // };
+        // });
+        // return observable;
+    }
 }
 
 export class Tweet {
