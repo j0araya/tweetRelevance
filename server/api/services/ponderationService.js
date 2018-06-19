@@ -1,27 +1,6 @@
-var maxRetweet = 0,
-    maxFollowers = 0,
-    maxReply = 0,
-    maxFavorite = 0,
-    maxQuote = 0,
-    list = [],
-    size = 10,
-    pondValue = {
-        quantity: 0.4,
-        url: 0.3,
-        hashtag: 0.3,
-        // interval: (interval || 5) * 1000,
-        substraction: 0.001,
-    },
-    hashtagPond = (hashtags) => {
-        return ((hashtags || []).length ? 1 : 0) * pondValue.hashtag;
-    },
-    urlPond = (urls) => {
-        return ((urls || []).length ? 1 : 0) * pondValue.url;
-    };
-module.exports = {
-    // tweets: 0,
+var self = module.exports = {
     pondValue: {
-        quantiy: 0.5,
+        quantity: 0.5,
         url: 0.3,
         hashtag: 0.2,
     },
@@ -31,74 +10,79 @@ module.exports = {
     maxReply: 0,
     maxFavorite: 0,
     maxQuote: 0,
-    add: (tweet) => {
-        let index = list.findIndex(l => tweet.normTotal > l.normTotal);
-        let deletedValue = 0;
-        console.log('aaa', list[index].id, tweet.id);
-        if (list[index].id === tweet.id){
-            deletedValue += 1;
-        }
-        if (!list.length) {
-            list.push(tweet);
-        } else if (list.length < size) {
-            list.splice(index, deletedValue, tweet);
-        } else {
-            list.splice(index, deletedValue, tweet);
-            list.pop();
-        }
-    },
     subtractMaxValues: () => {
-        maxRetweet *= 0.9;
-        maxFollowers *= 0.9;
-        maxReply *= 0.9;
-        maxFavorite *= 0.9;
-        maxQuote *= 0.9;
+        self.maxRetweet *= 0.9;
+        self.maxFollowers *= 0.9;
+        self.maxReply *= 0.9;
+        self.maxFavorite *= 0.9;
+        self.maxQuote *= 0.9;
     },
     normFavorite: (value) => {
-        return value / maxFavorite;
+        if (value > self.maxFavorite) {
+            self.maxFavorite = value;
+        }
+        let temp = value / self.maxFavorite;
+        return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
     },
     normRetweet: (value) => {
-        return value / maxRetweet;
+        if (value > self.maxRetweet) {
+            self.maxRetweet = value;
+        }
+        let temp = value / self.maxRetweet;
+        return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
     },
     normReply: (value) => {
-        return value / maxReply;
+        if (value > self.maxReply) {
+            self.maxReply = value;
+        }
+        let temp = value / self.maxReply;
+        return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
     },
     normQuote: (value) => {
-        return value / maxQuote;
+        if (value > self.maxQuote) {
+            self.maxQuote = value;
+        }
+        let temp = value / self.maxQuote;
+        return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
+    },
+    norm: (value, max) => {
+        return value / max;
     },
     ponderate: (tweet) => {
-        if (tweet.favoriteCount > maxFavorite) {
-            maxFavorite = tweet.favoriteCount;
+        if (tweet.favoriteCount > self.maxFavorite) {
+            self.maxFavorite = tweet.favoriteCount;
         }
-        if (tweet.replyCount > maxReply) {
-            maxReply = tweet.replyCount;
+        if (tweet.replyCount > self.maxReply) {
+            self.maxReply = tweet.replyCount;
         }
-        if (tweet.retweetCount > maxRetweet) {
-            maxRetweet = tweet.retweetCount;
+        if (tweet.retweetCount > self.maxRetweet) {
+            self.maxRetweet = tweet.retweetCount;
         }
-        if (tweet.quoteCount > maxQuote) {
-            maxQuote = tweet.quoteCount;
+        if (tweet.quoteCount > self.maxQuote) {
+            self.maxQuote = tweet.quoteCount;
         }
-        let sum = tweet.favoriteCount +
-            tweet.replyCount +
-            tweet.retweetCount +
-            tweet.quoteCount;
-        let max = maxFavorite +
-            maxReply +
-            maxRetweet +
-            maxQuote;
+        let sum = tweet.favoriteCount + tweet.replyCount + tweet.retweetCount + tweet.quoteCount;
+        let max = self.maxFavorite + self.maxReply + self.maxRetweet + self.maxQuote;
 
-        let plus = hashtagPond(tweet.entities.hashtags) + urlPond(tweet.entities.urls);
-        // console.log('max', max, sum);
-        let values = (sum / max) * pondValue.quantity;
+        let plus = self.hashtagPond(tweet.entities.hashtags) + self.urlPond(tweet.entities.urls);
+        let values = (sum / max) * self.pondValue.quantity;
+        // console.log('plus', plus, 'sum', sum, 'max', max, 'values', values, 'pnd', self.pondValue.quantity);
+        // console.log('11',tweet.favoriteCount, tweet.replyCount, tweet.retweetCount,tweet.quoteCount);
+        // console.log('22', self.maxFavorite, self.maxReply, self.maxRetweet, self.maxQuote);
         values += plus;
         return values;
     },
+    hashtagPond: function (hashtags) {
+        return ((hashtags || []).length ? 1 : 0) * self.pondValue.hashtag;
+    },
+    urlPond: function (urls) {
+        return ((urls || []).length ? 1 : 0) * self.pondValue.url;
+    },
     getMaxFollowers: () => {
-        return this.maxFollowers;
+        return self.maxFollowers;
     },
     getMaxRetweeted: () => {
-        return this.maxRetweeted;
+        return self.maxRetweeted;
     },
     getUrls: (urls) => {
         return urls.map(u => {

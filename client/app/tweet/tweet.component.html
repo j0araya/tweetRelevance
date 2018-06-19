@@ -1,149 +1,160 @@
-<!-- adadadad -->
-<!-- {{ system.cpu.brand }} -->
 <mat-toolbar>
-    Prsentación 4
+    Prsentación 5
 </mat-toolbar>
 
+<mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+    <mat-step label="Ponderaciones dentro de la fúncion">
+        <form>
+            <h3>Ponderaciones: estos valores van entre 0 y 1. La suma total no puede exceder el valor de 1.</h3>
 
-<mat-grid-list cols="2" rowHeight="4:4">
-    <mat-grid-tile>
-        <mat-card *ngIf="system.os">
-            <mat-card-header>
-                <div mat-card-avatar>
-                    <button mat-mini-fab>
-                        <i>
-                            <fa [name]="'microchip'"></fa>
-                        </i>
-                    </button>
-                </div>
-                <mat-card-title>
-                    Procesador:
-                    <strong>{{system.cpu.brand}} ({{cpuUsage}}%)</strong>
-                </mat-card-title>
-                <mat-card-subtitle>Núcleos:
-                    <strong>{{system.cpu.cores}}</strong> | Velocidad:
-                    <strong>{{system.cpu.speed}} GHz</strong>
-                </mat-card-subtitle>
-            </mat-card-header>
-            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
-            <mat-card-content>
-                <div>
-                    <div *ngIf="barChartLabels" style="display: block">
-                        <canvas baseChart
-                                [datasets]="barChartData"
-                                [labels]="barChartLabels"
-                                [options]="barChartOptions"
-                                [legend]="barChartLegend"
-                                [chartType]="barChartType"
-                                (chartHover)="chartHovered($event)"
-                                (chartClick)="chartClicked($event)"></canvas>
-                    </div>
-                    <!-- <button (click)="randomize()">Update</button> -->
-                </div>
-            </mat-card-content>
-            <!-- <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-            </mat-card-actions> -->
-        </mat-card>
-        <!-- <h4 matLine>Procesador:
-                        <strong>{{system.cpu.brand}}</strong>
-                    </h4>
-                    <p matLine>Núcleos:
-                        <strong>{{system.cpu.cores}}</strong> | Velocidad:
-                        <strong>{{system.cpu.speed}} GHz</strong>
-                    </p> -->
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <mat-card *ngIf="system.cpu">
-            <mat-card-header>
-                <div mat-card-avatar>
-                    <button mat-mini-fab>
-                        <i>
-                            <fa [name]="'server'"></fa>
-                        </i>
-                    </button>
-                </div>
-                <mat-card-title>
-                    Sistema:
-                    <strong>{{system.os.distro}} {{system.os.arch}}</strong>
-                </mat-card-title>
-                <mat-card-subtitle>
-                    <span matLine *ngFor="let mem of system.memLayout">
-                        <span *ngIf="mem.size > 0">RAM:
-                            <strong>{{mem.size / (1024 * 1024 * 1024) | number: 0 }} GB - {{mem.type}}</strong> |
-                        </span>
-                    </span>
-                    <span matLine *ngFor="let disk of system.diskLayout">
-                        <span>Disco:
-                            <strong>{{disk.size / (1024 * 1024 * 1024) | number: '0.0-0' }} GB - {{disk.type}}</strong>
-                        </span>
-                    </span>
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <div style="display: block">
-                    <canvas baseChart
-                            [data]="pieChartData"
-                            [labels]="pieChartLabels"
-                            [chartType]="pieChartType"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)">
-                    </canvas>
-                </div>
-            </mat-card-content>
-            <!-- <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-            </mat-card-actions> -->
-        </mat-card>
-    </mat-grid-tile>
-    <!-- <mat-grid-tile>
-        
-    </mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile> -->
-</mat-grid-list>
-<div style="display: block">
-    <canvas baseChart
-            [datasets]="radarChartData"
-            [labels]="radarChartLabels"
-            [chartType]="radarChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)">
-        </canvas>
-  </div>
+            <div>
+                <h4>Valores numéricos</h4>
+                <mat-form-field>
+                    <input matInput type="number" placeholder="Respuestas" [(ngModel)]="values.replies" name="repuestas" step="0.1" min="0" max="1">
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Comentarios" [(ngModel)]="values.comments" name="comentarios" step="0.1" min="0"
+                        max="1">
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Menciones" [(ngModel)]="values.mentions" name="menciones" step="0.1" min="0" max="1">
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Favoritos" [(ngModel)]="values.favorites" name="favoritos" step="0.1" min="0"
+                        max="1">
+                </mat-form-field>
+            </div>
+            <div>
+                <h4>Valores booleanos</h4>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Hashtags" [(ngModel)]="values.hashtags" name="hashtags" step="0.1" min="0" max="1">
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="URL" [(ngModel)]="values.urls" name="urls" step="0.1" min="0" max="1">
+                </mat-form-field>
+            </div>
+            <h4> Total: {{ values.comments + values.favorites + values.mentions + values.favorites + values.hashtags + values.urls}}
+                </h4>
+            <mat-divider></mat-divider>
+            <div>
+                <h4>Estos campos disminuyen el valor de ponderacion según la cantidad y tiempo ingreados</h4>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Cantidad" [(ngModel)]="delay.quantity" name="cantidad" step="10" min="0">
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Segundos" [(ngModel)]="delay.seconds" name="segundos" step="10" min="0">
+                </mat-form-field>
+            </div>
 
-<div *ngFor="let tweet of tweetList">
-<!-- {{tweet.text}} -->
-    <div class="resp">
-        <blockquote class="twitter-tweet">
-            <p *ngIf="tweet.extended_tweet" lang="en" dir="ltr">{{ tweet.extended_tweet.full_text ||  tweet.text }}
-            <p *ngIf="!tweet.extended_tweet" lang="en" dir="ltr">{{ tweet.text }}
-                <!-- <a href="https://twitter.com/YosemiteNPS">@YosemiteNPS</a>. -->
-                <!-- <a *ngFor="let ht of tweet.entities.hashtags" href="https://twitter.com/hashtag/?src=hash">
-                    #{{ht.text}}
-                </a>
-                <a *ngFor="let um of tweet.entities.user_mentions"> 
-                    @{{ um.screen_name}}
-                </a> -->
-            </p>&mdash; {{ tweet.user.name }} (@{{tweet.user.screen_name}})
-            <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.user.id}}">{{ tweet.created_at | date: 'dd/MM/yyy' }}</a>
-            
-                <br/>RT: {{tweet.retweet_count}} | RP: {{ tweet.reply_count}} | FV: {{  tweet.favorite_count }} | Q: {{  tweet.quote_count }}
-                
-            
-        </blockquote>
-        <!-- <div style="display: block">
-            <canvas baseChart
-                    [datasets]="tweet.radarChartData"
-                    [labels]="radarChartLabels"
-                    [chartType]="radarChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)">
-                </canvas>
-          </div> -->
-    </div>
-</div>
+            <div>
+                <button mat-raised-button color="primary" matStepperNext>Comenzar toma de datos</button>
+            </div>
+            <!-- <input matInput placeholder="Comentarios" [(ngModel)]="value.comments"> -->
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Toma de datos</ng-template>
 
-
+        <div style="display: block">
+            <canvas baseChart 
+                [datasets]="radarChartData" 
+                [labels]="radarChartLabels" 
+                [chartType]="radarChartType" 
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+            </canvas>
+        </div>
+        <!-- <mat-grid-list cols="2" rowHeight="2:1"> -->
+            <!-- <mat-grid-tile>
+                <mat-card *ngIf="system.os">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <button mat-mini-fab>
+                                <i>
+                                    <fa [name]="'microchip'"></fa>
+                                </i>
+                            </button>
+                        </div>
+                        <mat-card-title>
+                            Procesador:
+                            <strong>{{system.cpu.brand}} ({{cpuUsage}}%)</strong>
+                        </mat-card-title>
+                        <mat-card-subtitle>Núcleos:
+                            <strong>{{system.cpu.cores}}</strong> | Velocidad:
+                            <strong>{{system.cpu.speed}} GHz</strong>
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div>
+                            <div *ngIf="barChartLabels" style="display: block">
+                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                                    [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile> -->
+            <!-- <mat-grid-tile>
+                <mat-card *ngIf="system.cpu">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <button mat-mini-fab>
+                                <i>
+                                    <fa [name]="'server'"></fa>
+                                </i>
+                            </button>
+                        </div>
+                        <mat-card-title>
+                            Sistema:
+                            <strong>{{system.os.distro}} {{system.os.arch}}</strong>
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            <span matLine *ngFor="let mem of system.memLayout">
+                                <span *ngIf="mem.size > 0">RAM:
+                                    <strong>{{mem.size / (1024 * 1024 * 1024) | number: 0 }} GB - {{mem.type}}</strong> |
+                                </span>
+                            </span>
+                            <span matLine *ngFor="let disk of system.diskLayout">
+                                <span>Disco:
+                                    <strong>{{disk.size / (1024 * 1024 * 1024) | number: '0.0-0' }} GB - {{disk.type}}</strong>
+                                </span>
+                            </span>
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div style="display: block">
+                            <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)">
+                            </canvas>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile> -->
+        <!-- </mat-grid-list> -->
+        <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Volver a filtros</button>
+            <button (click)="getCorrelations()" mat-raised-button color="primary" matStepperNext>Obtener correlación</button>
+        </div>
+        <mat-tab-group>
+            <mat-tab label="RP">
+                <app-tweet-list [tweets]="replies"></app-tweet-list>
+            </mat-tab>
+            <mat-tab label="RT">
+                <app-tweet-list [tweets]="retweets"></app-tweet-list>
+            </mat-tab>
+            <mat-tab label="FV">
+                <app-tweet-list [tweets]="favorites"></app-tweet-list>
+            </mat-tab>
+            <mat-tab label="QT">
+                <app-tweet-list [tweets]="quotes"></app-tweet-list>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Coeficientes de correlación</ng-template>
+        <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Atrás</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>
 

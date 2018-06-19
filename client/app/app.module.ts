@@ -1,9 +1,9 @@
 // Angular CORE
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { HttpModule } from '@angular/http';
-import { RouterModule, Routes }   from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 // Plugins
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
@@ -11,6 +11,13 @@ import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCard } from '@
 import { MatListModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatStepperModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
+
+
+import { MatIconModule } from '@angular/material/icon';
+
 // Main Components
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -28,7 +35,10 @@ import { PreviewDiscussionsComponent } from './preview/preview-discussions/previ
 import { PreviewNoneComponent } from './preview/preview-none/preview-none.component';
 import { SocketService } from './service/socket/socket.service';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { TweetComponent } from './tweet/tweet.component'
+import { TweetComponent } from './tweet/tweet.component';
+import { TweetListComponent } from './tweet-list/tweet-list.component';
+
+
 
 
 // Routes
@@ -105,7 +115,8 @@ const appRoutes: Routes = [
             }
         ]
     },
-    { path: '',
+    {
+        path: '',
         redirectTo: '/dashboard',
         pathMatch: 'full'
     },
@@ -130,7 +141,8 @@ const appRoutes: Routes = [
         PreviewComponent,
         PreviewDiscussionsComponent,
         PreviewNoneComponent,
-        TweetComponent
+        TweetComponent,
+        TweetListComponent
     ],
     imports: [
         Angular2FontawesomeModule,
@@ -138,15 +150,22 @@ const appRoutes: Routes = [
             appRoutes,
             { enableTracing: true } // <-- debugging purposes only
         ),
+        BrowserAnimationsModule,
         BrowserModule,
         FormsModule,
-        MatButtonModule, 
+        MatButtonModule,
         MatCheckboxModule,
         MatToolbarModule,
         MatListModule,
         MatCardModule,
         MatGridListModule,
+        MatTabsModule,
         ChartsModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatStepperModule,
+        ReactiveFormsModule
     ],
     providers: [SocketService],
     bootstrap: [AppComponent]

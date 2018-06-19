@@ -22,7 +22,12 @@ module.exports.bootstrap = function (cb) {
 
     //lista dinamica de los tweets relevantes
     var tl = require('../api/class/TweetList');
-    var TweetList = new tl.TweetList(10, 1);
+    // var TweetList = new tl.TweetList(10, 1, 'normTotal');
+    var RetweetList = new tl.TweetList(10, 90);
+    var ReplyList = new tl.TweetList(10, 90);
+    var QuoteList = new tl.TweetList(10, 90);
+    var FavoriteList = new tl.TweetList(10, 90);
+
 
 
     stream.on('connect', request => {
@@ -46,9 +51,15 @@ module.exports.bootstrap = function (cb) {
 
     var interaval = 10 * 1000;
 
-    setInterval(()=> {
-        TweetList.reponderate();
-        ponderationService.subtractMaxValues();
+    setInterval(() => {
+        sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'RP', list: ReplyList.list });
+        sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'RT', list: RetweetList.list });
+        sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'FV', list: FavoriteList.list });
+        sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'QT', list: QuoteList.list });
+
+        // ReplyList.substract();
+        // RetweetList.substract();
+        // ponderationService.subtractMaxValues();
     }, interaval);
 
     setTimeout(() => {
@@ -138,30 +149,58 @@ module.exports.bootstrap = function (cb) {
             tempTweet.retweetCount = tweet.retweeted_status.retweet_count;
             tempTweet.favoriteCount = tweet.retweeted_status.favorite_count;
 
+            // let minTweet = TweetList.getLast() || { normTotal: 0 }; // min values
+            let minReply = ReplyList.getLast() || { replyCount: 0 };
+            let minRetweet = RetweetList.getLast() || { retweetCount: 0 };
+            let minFavorite = FavoriteList.getLast() || { favoriteCount: 0 };
+            let minQuote = QuoteList.getLast() || { quoteCount: 0 };
+
+            // tempTweet.normFavorite = ponderationService.normFavorite(tempTweet.favoriteCount);
+            // tempTweet.normReply = ponderationService.normReply(tempTweet.replyCount);
+            // // tempTweet.normRetweet = ponderationService.normRetweet(tempTweet.retweetCount);
+            // // tempTweet.normQuote = ponderationService.normQuote(tempTweet.quoteCount);
+
+            // // tempTweet.normFavorite = ponderationService.norm(tempTweet.favoriteCount, minTweet.favoriteCount);
+            // tempTweet.normReply = ponderationService.norm(tempTweet.replyCount, minReply.value);
+            // tempTweet.normRetweet = ponderationService.norm(tempTweet.retweetCount, minTweet.retweetCount);
+            // tempTweet.normQuote = ponderationService.norm(tempTweet.quoteCount, minTweet.quoteCount);
+            // tempTweet.normTotal = ponderationService.ponderate(tempTweet);
+            //replyCount
+            // if (tempTweet.normTotal > minTweet.normTotal) {
+            //     console.log('1',tempTweet.normTotal, minTweet.normTotal);
+            //     TweetList.add(tempTweet, 'normTotal');
+            //     TweetList.list.forEach(l => l.normTotal = ponderationService.ponderate(l));
+            //     sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'normTotal', list: TweetList.list });
+            //     // Tweet.message('', TweetList);
+            //     // sails.log('es nuevo', tempTweet);
             // }
-
-            // if (tempTweet) {
-
-            // ponderationService.ponderate();
-            let minTweet = TweetList.getLast() || { normTotal: 0 }; // min values
-
-            tempTweet.normTotal = ponderationService.ponderate(tempTweet);
-            TweetList.list.forEach(l => l.normTotal = ponderationService.ponderate(l));
-            // sails.log('tempTweet',tempTweet);
-            if (tempTweet.normTotal > minTweet.normTotal) {
-                tempTweet.normFavorite = ponderationService.normFavorite(tempTweet.favoriteCount);
-                tempTweet.normReply = ponderationService.normReply(tempTweet.replyCount);
-                tempTweet.normRetweet = ponderationService.normRetweet(tempTweet.retweetCount);
-                tempTweet.normQuote = ponderationService.normQuote(tempTweet.quoteCount);
-                TweetList.add(tempTweet);
-                Tweet.message('new-list', TweetList);
-                // sails.log('es nuevo', tempTweet);
-            } else {                            // es un tweet nuevo
-                // Tweet2.create(tempTweet).exec((err, data) => {
-                //     // sails.log('created', err, data);
-                //     // Tweet.message('new-tweet', data);
-                // });           // si es retweet 
+            if (tempTweet.replyCount > minReply.replyCount) {
+                console.log('2 RP', tempTweet.replyCount, minReply.value);
+                ReplyList.add(Object.assign({}, tempTweet), tempTweet.replyCount);
+                ReplyList.norm();
             }
+            if (tempTweet.retweetCount > minRetweet.retweetCount) {
+                console.log('3 RT', tempTweet.retweetCount, minRetweet.value);
+                RetweetList.add(Object.assign({}, tempTweet), tempTweet.retweetCount);
+                RetweetList.norm();
+            }
+            if (tempTweet.favoriteCount > minFavorite.favoriteCount) {
+                console.log('4 FV', tempTweet.favoriteCount, minFavorite.value);
+                FavoriteList.add(Object.assign({}, tempTweet), tempTweet.favoriteCount);
+                FavoriteList.norm();
+            }
+            if (tempTweet.quoteCount > minQuote.quoteCount) {
+                console.log('5 QT');
+                QuoteList.add(Object.assign({}, tempTweet), tempTweet.quoteCount);
+                QuoteList.norm();
+            }
+            // if (tempTweet.normUrls > minUrl.normUrls) {
+            //     UrlsList.add(tempTweet, 'normUrl');
+            //     Tweet.message('url-list', UrlsList);
+            // }
+            // if (tempTweet.normHashtags > minHashtag.normHashtags) {
+
+            // }
         }
         // stream.on('user_event', (eventMsg) => {
         //     sails.log(eventMsg);

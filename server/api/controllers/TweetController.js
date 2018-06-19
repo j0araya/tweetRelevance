@@ -10,9 +10,15 @@ module.exports = {
         if (!req.isSocket) {
             return res.badRequest();
         }
-        Tweet.subscribe(req, 'new-list');
-        // Tweet.subscribe(req, 'new-tweet');
-        return res.send({ connected: req.isSocket });
+        sails.sockets.join(req, 'tweet-lists', err => {
+            if (err) {
+                return res.serverError(err);
+            }
+            return res.send({
+                message: 'Recibiendo Tweets',
+                connected: req.isSocket
+            });
+        });
     }
 };
 

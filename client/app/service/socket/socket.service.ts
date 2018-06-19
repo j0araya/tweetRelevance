@@ -26,6 +26,9 @@ export class SocketService {
         this.io.socket.post('/tweet/subscribe', data => {
             console.log('subscribe', data);
         });
+        // this.io.socket.post('/user/subscribe', data => {
+        //     console.log('subscribe', data);
+        // });
 
     }
     // sendMessage(message) {
@@ -36,6 +39,23 @@ export class SocketService {
     // }
     stopTweets() {
         return this.io.socket.close();
+    }
+
+    getPearsonCorrelation() {
+        return Observable.create((observer: any) => {
+            this.io.socket.post('/coefficient/getPearson', data => {
+                console.log('data', data);
+                return observer.next(data);
+            });
+        });
+    }
+    getSpearmanCorrelation() {
+        return Observable.create((observer: any) => {
+            this.io.socket.post('/coefficient/getSpearman', data => {
+                console.log('sdata', data);
+                return observer.next(data);
+            });
+        });
     }
 
     getStaticSystemInfo() {
@@ -68,47 +88,55 @@ export class SocketService {
     }
     getTweetsList() {
         return Observable.create((observer: any) => {
-            return this.io.socket.on('tweet', (list: any) => {
-                observer.next({ action: "tweet-list", item: list })
-                // return () => this.io.socket.close();
+            return this.io.socket.on('new-list', (data: any) => {
+                observer.next(data);
             });
             // this.io.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }) );
             // return () => this.io.socket.close();
         });
     }
-    getTweets() {
-        // return new Observable(observer => {
-        // io.socket = io.sails.connect();
-        // this.io.socket.on('new-tweet', tweet => {
-        //     console.log('new-tweet', tweet);
-        //     return new Tweet(tweet);
-        // })
-        // this.io.socket.on('connect', () => {
-        //     console.log('conectado');
-        //     // io.socket.emit('message', { text: 'emit' });
-        // });
-        return Observable.create((observer: any) => {
-            return this.io.socket.on('tweet', (tweet: any) => {
-                observer.next({ action: "new-tweet", item: tweet })
-                // return () => this.io.socket.close();
-            });
-            // this.io.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }) );
-            // return () => this.io.socket.close();
-        });
-        // this.io.socket.on('tweet', (data) => {
-        //     console.log('nuevo tweet', data);
-        //     return new Tweet(data);
-        // });
-        // this.subscriptors.next()
-        // this.io.socket.on('disconnect', () => {
-        //     console.log('disconnected...');
-        // });
-        // return () => {
-        //     io.socket.disconnect();
-        // };
-        // });
-        // return observable;
-    }
+    // getTweets() {
+    //     // return new Observable(observer => {
+    //     // io.socket = io.sails.connect();
+    //     // this.io.socket.on('new-tweet', tweet => {
+    //     //     console.log('new-tweet', tweet);
+    //     //     return new Tweet(tweet);
+    //     // })
+    //     // this.io.socket.on('connect', () => {
+    //     //     console.log('conectado');
+    //     //     // io.socket.emit('message', { text: 'emit' });
+    //     // });
+    //     return Observable.create((observer: any) => {
+    //         return this.io.socket.on('tweets', (tweet: any) => {
+    //             console.log('tweet2', tweet);
+    //             observer.next(tweet);
+    //             // return () => this.io.socket.close();
+    //         });
+    //         // this.io.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }) );
+    //         // return () => this.io.socket.close();
+    //     });
+    // return Observable.create((observer: any) => {
+    //     return this.io.socket.on('tweet', (tweet: any) => {
+    //         console.log('tweet1', tweet);
+    //         observer.next(tweet);
+    //         // return () => this.io.socket.close();
+    //     });
+    //     // this.io.socket.on("remove", (item: any) => observer.next({ action: "remove", item: item }) );
+    //     // return () => this.io.socket.close();
+    // });
+    // this.io.socket.on('tweet', (data) => {
+    //     console.log('nuevo tweet', data);
+    //     return new Tweet(data);
+    // });
+    // this.subscriptors.next()
+    // this.io.socket.on('disconnect', () => {
+    //     console.log('disconnected...');
+    // });
+    // return () => {
+    //     io.socket.disconnect();
+    // };
+    // });
+    // return observable;
 }
 
 export class Tweet {
