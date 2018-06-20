@@ -68,7 +68,7 @@ module.exports.blueprints = {
   * (combine w/ policies, etc.)                                              *
   *                                                                          *
   ***************************************************************************/
-
+  'GET /coefficient/': 'CoefficientController.getPearson'
   // rest: true,
   //rest: false,
 

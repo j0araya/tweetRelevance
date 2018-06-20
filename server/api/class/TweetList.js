@@ -1,19 +1,24 @@
 class TweetList {
     constructor(size, substraction) {
         this.list = [];
-        this.max = 0;
+        this.max = 1;
         this.substraction = substraction/100;
         this.size = size || 10;
     }
 }
 TweetList.prototype.norm = function () {
-    let max = this.max;
-    this.list.forEach(t => {
-        if (t.value > max) {
-            max = t.value;
+    for (let i = 0; i < this.list.length; i++) {
+        if (this.list[i].value > this.max) {
+            this.max = this.list[i].value;
         }
-        t.normValue = t.value / max;
-    });
+        this.list[i].normValue = this.list[i].value / this.max;
+    }
+    // this.list.forEach(t => {
+    //     if (t.value > max) {
+    //         max = t.value;
+    //     }
+    //     t.normValue = t.value / max;
+    // });
 };
 TweetList.prototype.substract = function () {
     this.list.forEach(t => {
@@ -83,12 +88,12 @@ TweetList.prototype.add = function (tweet, value) {
 // };
 
 
-TweetList.prototype.getMaxValues = function () {
-    return this.list[this.list.length - 1];
+TweetList.prototype.getMax = function () {
+    return this.max;
 };
 
 TweetList.prototype.getLast = function () {
-    return this.list[this.list.length - 1];
+    return this.list[this.list.length - 1] || { value: 0 };
 };
 
 TweetList.prototype.getFirst = function () {

@@ -7,8 +7,11 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
     encapsulation: ViewEncapsulation.None
 })
 export class TweetListComponent implements OnInit {
+    
     constructor() { }
+    
     @Input() public tweets;
+    
     ngOnInit() {
     }
 }

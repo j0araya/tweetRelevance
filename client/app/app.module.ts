@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+// import { HttpModule } from '@angular/http';
 // Plugins
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
@@ -37,6 +39,7 @@ import { SocketService } from './service/socket/socket.service';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { TweetComponent } from './tweet/tweet.component';
 import { TweetListComponent } from './tweet-list/tweet-list.component';
+import { CorrelationService } from './service/correlation/correlation.service';
 
 
 
@@ -152,6 +155,8 @@ const appRoutes: Routes = [
         ),
         BrowserAnimationsModule,
         BrowserModule,
+        HttpClientModule,
+        // HttpModule,
         FormsModule,
         MatButtonModule,
         MatCheckboxModule,
@@ -165,9 +170,9 @@ const appRoutes: Routes = [
         MatFormFieldModule,
         MatInputModule,
         MatStepperModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
-    providers: [SocketService],
+    providers: [SocketService, CorrelationService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

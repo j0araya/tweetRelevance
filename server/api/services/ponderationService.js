@@ -4,63 +4,38 @@ var self = module.exports = {
         url: 0.3,
         hashtag: 0.2,
     },
-    list: [],
-    maxRetweet: 0,
-    maxFollowers: 0,
-    maxReply: 0,
-    maxFavorite: 0,
-    maxQuote: 0,
-    subtractMaxValues: () => {
-        self.maxRetweet *= 0.9;
-        self.maxFollowers *= 0.9;
-        self.maxReply *= 0.9;
-        self.maxFavorite *= 0.9;
-        self.maxQuote *= 0.9;
-    },
-    normFavorite: (value) => {
-        if (value > self.maxFavorite) {
-            self.maxFavorite = value;
-        }
-        let temp = value / self.maxFavorite;
-        return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
-    },
-    normRetweet: (value) => {
-        if (value > self.maxRetweet) {
-            self.maxRetweet = value;
-        }
-        let temp = value / self.maxRetweet;
-        return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
-    },
-    normReply: (value) => {
-        if (value > self.maxReply) {
-            self.maxReply = value;
-        }
-        let temp = value / self.maxReply;
-        return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
-    },
-    normQuote: (value) => {
-        if (value > self.maxQuote) {
-            self.maxQuote = value;
-        }
-        let temp = value / self.maxQuote;
-        return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
-    },
+    // normFavorite: (value) => {
+    //     if (value > self.maxFavorite) {
+    //         self.maxFavorite = value;
+    //     }
+    //     let temp = value / self.maxFavorite;
+    //     return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
+    // },
+    // normRetweet: (value) => {
+    //     if (value > self.maxRetweet) {
+    //         self.maxRetweet = value;
+    //     }
+    //     let temp = value / self.maxRetweet;
+    //     return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
+    // },
+    // normReply: (value) => {
+    //     if (value > self.maxReply) {
+    //         self.maxReply = value;
+    //     }
+    //     let temp = value / self.maxReply;
+    //     return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
+    // },
+    // normQuote: (value) => {
+    //     if (value > self.maxQuote) {
+    //         self.maxQuote = value;
+    //     }
+    //     let temp = value / self.maxQuote;
+    //     return !isNaN(parseFloat(temp)) && isFinite(temp) ? temp : 0;
+    // },
     norm: (value, max) => {
         return value / max;
     },
     ponderate: (tweet) => {
-        if (tweet.favoriteCount > self.maxFavorite) {
-            self.maxFavorite = tweet.favoriteCount;
-        }
-        if (tweet.replyCount > self.maxReply) {
-            self.maxReply = tweet.replyCount;
-        }
-        if (tweet.retweetCount > self.maxRetweet) {
-            self.maxRetweet = tweet.retweetCount;
-        }
-        if (tweet.quoteCount > self.maxQuote) {
-            self.maxQuote = tweet.quoteCount;
-        }
         let sum = tweet.favoriteCount + tweet.replyCount + tweet.retweetCount + tweet.quoteCount;
         let max = self.maxFavorite + self.maxReply + self.maxRetweet + self.maxQuote;
 
@@ -78,12 +53,6 @@ var self = module.exports = {
     urlPond: function (urls) {
         return ((urls || []).length ? 1 : 0) * self.pondValue.url;
     },
-    getMaxFollowers: () => {
-        return self.maxFollowers;
-    },
-    getMaxRetweeted: () => {
-        return self.maxRetweeted;
-    },
     getUrls: (urls) => {
         return urls.map(u => {
             return {
@@ -97,7 +66,6 @@ var self = module.exports = {
             };
         });
     },
-
     getHashtags: (hashtags) => {
         return hashtags.map(h => h.text);
     },

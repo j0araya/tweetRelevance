@@ -3,6 +3,7 @@ const SpearmanRHO = require('spearman-rho');
 
 module.exports = {
     getPearson: (req, res) => {
+        sails.log('asdadasd');
         let rank = correlation.rank([1, 2, 3, 4, 5], [-5, 25, 10, 20, 100]);
         let determination = correlation.determination([1, 2, 3, 4, 5], [-5, 25, 10, 20, 100]);
         return res.send({ rank, determination });

@@ -148,6 +148,12 @@
             <mat-tab label="QT">
                 <app-tweet-list [tweets]="quotes"></app-tweet-list>
             </mat-tab>
+            <mat-tab label="Normalized">
+                <app-tweet-list [tweets]="normalized"></app-tweet-list>
+            </mat-tab>
+            <mat-tab label="Full">
+                <app-tweet-list [tweets]="fullNormalized"></app-tweet-list>
+            </mat-tab>
         </mat-tab-group>
     </mat-step>
     <mat-step>

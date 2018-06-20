@@ -22,7 +22,8 @@ module.exports.bootstrap = function (cb) {
 
     //lista dinamica de los tweets relevantes
     var tl = require('../api/class/TweetList');
-    // var TweetList = new tl.TweetList(10, 1, 'normTotal');
+    var TweetList = new tl.TweetList(10, 90);
+    var FullTweetList = new tl.TweetList(10, 90);
     var RetweetList = new tl.TweetList(10, 90);
     var ReplyList = new tl.TweetList(10, 90);
     var QuoteList = new tl.TweetList(10, 90);
@@ -52,11 +53,18 @@ module.exports.bootstrap = function (cb) {
     var interaval = 10 * 1000;
 
     setInterval(() => {
+        ReplyList.substract();
+        RetweetList.substract();
+        FavoriteList.substract();
+        QuoteList.substract();
+        TweetList.substract();
+        FullTweetList.substract();
         sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'RP', list: ReplyList.list });
         sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'RT', list: RetweetList.list });
         sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'FV', list: FavoriteList.list });
         sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'QT', list: QuoteList.list });
-
+        sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'ND', list: TweetList.list });
+        sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'NT', list: FullTweetList.list });
         // ReplyList.substract();
         // RetweetList.substract();
         // ponderationService.subtractMaxValues();
@@ -149,58 +157,58 @@ module.exports.bootstrap = function (cb) {
             tempTweet.retweetCount = tweet.retweeted_status.retweet_count;
             tempTweet.favoriteCount = tweet.retweeted_status.favorite_count;
 
-            // let minTweet = TweetList.getLast() || { normTotal: 0 }; // min values
-            let minReply = ReplyList.getLast() || { replyCount: 0 };
-            let minRetweet = RetweetList.getLast() || { retweetCount: 0 };
-            let minFavorite = FavoriteList.getLast() || { favoriteCount: 0 };
-            let minQuote = QuoteList.getLast() || { quoteCount: 0 };
 
-            // tempTweet.normFavorite = ponderationService.normFavorite(tempTweet.favoriteCount);
-            // tempTweet.normReply = ponderationService.normReply(tempTweet.replyCount);
-            // // tempTweet.normRetweet = ponderationService.normRetweet(tempTweet.retweetCount);
-            // // tempTweet.normQuote = ponderationService.normQuote(tempTweet.quoteCount);
+            let minReply = ReplyList.getLast();
+            let minRetweet = RetweetList.getLast();
+            let minFavorite = FavoriteList.getLast();
+            let minQuote = QuoteList.getLast();
+            let minTweet = TweetList.getLast();
+            let minFullTweet = FullTweetList.getLast();
 
-            // // tempTweet.normFavorite = ponderationService.norm(tempTweet.favoriteCount, minTweet.favoriteCount);
-            // tempTweet.normReply = ponderationService.norm(tempTweet.replyCount, minReply.value);
-            // tempTweet.normRetweet = ponderationService.norm(tempTweet.retweetCount, minTweet.retweetCount);
-            // tempTweet.normQuote = ponderationService.norm(tempTweet.quoteCount, minTweet.quoteCount);
-            // tempTweet.normTotal = ponderationService.ponderate(tempTweet);
-            //replyCount
-            // if (tempTweet.normTotal > minTweet.normTotal) {
-            //     console.log('1',tempTweet.normTotal, minTweet.normTotal);
-            //     TweetList.add(tempTweet, 'normTotal');
-            //     TweetList.list.forEach(l => l.normTotal = ponderationService.ponderate(l));
-            //     sails.sockets.broadcast('tweet-lists', 'new-list', { where: 'normTotal', list: TweetList.list });
-            //     // Tweet.message('', TweetList);
-            //     // sails.log('es nuevo', tempTweet);
-            // }
-            if (tempTweet.replyCount > minReply.replyCount) {
-                console.log('2 RP', tempTweet.replyCount, minReply.value);
+            if (tempTweet.replyCount > minReply.value) {
+                // console.log('2 RP', tempTweet.replyCount, minReply.value);
                 ReplyList.add(Object.assign({}, tempTweet), tempTweet.replyCount);
                 ReplyList.norm();
             }
-            if (tempTweet.retweetCount > minRetweet.retweetCount) {
-                console.log('3 RT', tempTweet.retweetCount, minRetweet.value);
+            if (tempTweet.retweetCount > minRetweet.value) {
+                // console.log('3 RT', tempTweet.retweetCount, minRetweet.value);
                 RetweetList.add(Object.assign({}, tempTweet), tempTweet.retweetCount);
                 RetweetList.norm();
             }
-            if (tempTweet.favoriteCount > minFavorite.favoriteCount) {
-                console.log('4 FV', tempTweet.favoriteCount, minFavorite.value);
+            if (tempTweet.favoriteCount > minFavorite.value) {
+                // console.log('4 FV', tempTweet.favoriteCount, minFavorite.value);
                 FavoriteList.add(Object.assign({}, tempTweet), tempTweet.favoriteCount);
                 FavoriteList.norm();
             }
-            if (tempTweet.quoteCount > minQuote.quoteCount) {
-                console.log('5 QT');
+            if (tempTweet.quoteCount > minQuote.value) {
+                // console.log('5 QT');
                 QuoteList.add(Object.assign({}, tempTweet), tempTweet.quoteCount);
                 QuoteList.norm();
             }
-            // if (tempTweet.normUrls > minUrl.normUrls) {
-            //     UrlsList.add(tempTweet, 'normUrl');
-            //     Tweet.message('url-list', UrlsList);
-            // }
-            // if (tempTweet.normHashtags > minHashtag.normHashtags) {
 
-            // }
+            tempTweet.normCount = tempTweet.replyCount + tempTweet.retweetCount + tempTweet.favoriteCount + tempTweet.quoteCount;
+
+            if (tempTweet.normCount > minTweet.value) {
+                TweetList.add(Object.assign({}, tempTweet), tempTweet.normCount);
+                TweetList.norm();
+            }
+
+            let normReply = tempTweet.replyCount / ReplyList.getMax();
+            let normRetweet = tempTweet.retweetCount / RetweetList.getMax();
+            let normFavorite = tempTweet.favoriteCount / FavoriteList.getMax();
+            let normQuote = tempTweet.quoteCount / QuoteList.getMax();
+
+            // console.log('a',tempTweet.replyCount,  ReplyList.getMax() ,normReply, normRetweet, normFavorite, normQuote);
+
+            tempTweet.normResult = normReply + normRetweet + normFavorite + normQuote;
+            let hashUrlsCount = ponderationService.hashtagPond(tempTweet.entities.hashtags) + ponderationService.urlPond(tempTweet.entities.urls);
+            tempTweet.normTotal = tempTweet.normResult + hashUrlsCount;
+            
+            // console.log(tempTweet.normResult, hashUrlsCount, tempTweet.normTotal);
+            if (tempTweet.normTotal > minFullTweet.value) {
+                FullTweetList.add(Object.assign({}, tempTweet), tempTweet.normTotal);
+                FullTweetList.norm();
+            }
         }
         // stream.on('user_event', (eventMsg) => {
         //     sails.log(eventMsg);

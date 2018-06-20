@@ -13,8 +13,7 @@ export class SocketService {
     public tweets;
     public system;
     public io: SailsIOClient;
-    private subscriptors = new Subject<string>();
-    private newTweet = this.subscriptors.asObservable();
+    // private subscriptors = new Subject<string>();
     // Observable<Response> ob = this.http.post(this.url+ '/user/create', { name:'bla'})
 
     constructor() {
@@ -39,23 +38,6 @@ export class SocketService {
     // }
     stopTweets() {
         return this.io.socket.close();
-    }
-
-    getPearsonCorrelation() {
-        return Observable.create((observer: any) => {
-            this.io.socket.post('/coefficient/getPearson', data => {
-                console.log('data', data);
-                return observer.next(data);
-            });
-        });
-    }
-    getSpearmanCorrelation() {
-        return Observable.create((observer: any) => {
-            this.io.socket.post('/coefficient/getSpearman', data => {
-                console.log('sdata', data);
-                return observer.next(data);
-            });
-        });
     }
 
     getStaticSystemInfo() {

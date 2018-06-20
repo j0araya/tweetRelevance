@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatToolbarModule } from '@angular/material';
 import { MatListModule } from '@angular/material'
 import { SocketService } from '../service/socket/socket.service';
+import { CorrelationService } from '../service/correlation/correlation.service';
 import { MatCardModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material';
 import { MatHorizontalStepper, MatStepper } from '@angular/material';
@@ -46,6 +47,8 @@ export class TweetComponent implements OnInit, OnDestroy {
     public retweets = [];
     public favorites = [];
     public quotes = [];
+    public normalized = [];
+    public fullNormalized = [];
 
     public radarChartLabels: string[] = ['Retweet', 'Replies', 'Favorite', 'Menciones'];
 
@@ -94,10 +97,13 @@ export class TweetComponent implements OnInit, OnDestroy {
         quantity: 0.005,
     };
 
-    constructor(private SocketService: SocketService) { }
+    constructor(private SocketService: SocketService, private CorrelationService: CorrelationService) { }
 
     ngOnInit() {
-
+       
+        this.CorrelationService.getPearson().subscribe(data => {
+            console.log('lawea', data);
+        });
         // this.SocketService.getTweets().subscribe(
         //     (tweet) => {
 
@@ -175,6 +181,12 @@ export class TweetComponent implements OnInit, OnDestroy {
                         position = 3;
                         this.quotes = data.list;
                         break;
+                    case ('ND'):
+                        position = 4;
+                        this.normalized = data.list;
+                    case ('NT'):
+                        position = 5;
+                        this.fullNormalized = data.list;
                     default:
                         break;
                 }
@@ -227,12 +239,12 @@ export class TweetComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 
     }
-    getCorrelations() {
-        this.SocketService.getPearsonCorrelation().subscribe(data => {
-            console.log('adadad', data);
-        });
-        this.SocketService.getSpearmanCorrelation().subscribe(data => {
-            console.log('adadad', data);
-        });
-    }
+    // getCorrelations() {
+    //     this.SocketService.getPearsonCorrelation().subscribe(data => {
+    //         console.log('adadad', data);
+    //     });
+    //     this.SocketService.getSpearmanCorrelation().subscribe(data => {
+    //         console.log('adadad', data);
+    //     });
+    // }
 }
