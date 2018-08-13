@@ -6,13 +6,9 @@ Identificación de tweets relevantes en tiempo real.
 
 `git clone https://github.com/jonathanAraya/tweetRelevance.git` on project folder. 
 
-## Change Branch
-
-`git checkout develop`
-
 ## Setup
 
-To install packages run `npm install` or `sudo npm install`.
+To install packages run `npm install`.
 
 ## Development server
 
